@@ -1,0 +1,330 @@
+
+digraph {
+    graph [fontname = "helvetica"];
+    node  [fontname = "helvetica"];
+    edge  [fontname = "helvetica"];
+    graph [mclimit=50 nodesep=0.5 rankdir=LR ranksep=1.25]
+
+
+
+
+
+
+
+
+
+
+
+
+
+    TILE1_LUT_0 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE1_LUT_0</b><br/><br/>out = !i0&amp;i1</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                       <TR><TD PORT='i3'>i3</TD></TR>
+                   </TABLE>> color=orange shape=plaintext]
+
+    TILE1_BOUNDARY:in1:e -> TILE1_LUT_0:i0:w [color=orange]
+    TILE1_BOUNDARY:in2:e -> TILE1_LUT_0:i1:w [color=orange]
+    TILE1_BOUNDARY:in3:e -> TILE1_LUT_0:i2:w [color=orange]
+
+    TILE1_LUT_1 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE1_LUT_1</b><br/><br/>out = i0&amp;i1&amp;i2&amp;i3 | i0&amp;!i1&amp;!i2&amp;i3</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                       <TR><TD PORT='i3'>i3</TD></TR>
+                   </TABLE>> color=orange shape=plaintext]
+
+    TILE1_COUNTER_2:count_match2:e -> TILE1_LUT_1:i0:w [color=orange]
+    TILE1_COUNTER_1:count_match1:e -> TILE1_LUT_1:i1:w [color=orange]
+    TILE1_COUNTER_1:count_match2:e -> TILE1_LUT_1:i2:w [color=orange]
+    TILE1_FSM_0:OUT:e -> TILE1_LUT_1:i3:w [color=orange]
+
+    TILE1_LUT_2 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE1_LUT_2</b><br/><br/>out = i0|!i1</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                       <TR><TD PORT='i3'>i3</TD></TR>
+                   </TABLE>> color=orange shape=plaintext]
+
+    TILE1_COUNTER_2:count_match2:e -> TILE1_LUT_2:i0:w [color=orange]
+    TILE1_FSM_0:OUT:e -> TILE1_LUT_2:i1:w [color=orange]
+
+
+    TILE1_FSM_0 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE1_FSM_0</b><br/><br/>s0 = !s1&amp;!s0&amp;e1&amp;!e0 | !s1&amp;!s0&amp;e1&amp;e0 | !s1&amp;s0&amp;!e1&amp;!e0 | !s1&amp;s0&amp;e1&amp;!e0<br/><br/>out = !s1&amp;s0&amp;!e1&amp;!e0 | !s1&amp;s0&amp;!e1&amp;e0 | !s1&amp;s0&amp;e1&amp;!e0 | !s1&amp;s0&amp;e1&amp;e0</TD></TR>
+                      <TR><TD PORT='e1'>e1</TD><TD PORT='s0'>s0</TD></TR>
+                      <TR><TD PORT='xe0'>xe0</TD><TD PORT='s1'>s1</TD></TR>
+                      <TR><TD PORT='xe1'>xe1</TD><TD PORT='out'>out</TD></TR>
+                   </TABLE>> color=red shape=plaintext]
+
+    TILE1_COUNTER_0:count_match1:e -> TILE1_FSM_0:e0:w [color=red]
+    TILE1_LUT_0:OUT:e -> TILE1_FSM_0:e1:w [color=red]
+
+    TILE1_FSM_1 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE1_FSM_1</b><br/><br/>s0 = !s1&amp;!s0&amp;e1&amp;e0 | !s1&amp;s0&amp;e1&amp;!e0 | s1&amp;!s0&amp;e1&amp;e0 | s1&amp;s0&amp;e1&amp;!e0<br/>s1 = !s1&amp;s0&amp;e1&amp;e0 | s1&amp;!s0&amp;e1&amp;!e0 | s1&amp;!s0&amp;e1&amp;e0 | s1&amp;s0&amp;e1&amp;!e0<br/>out = s1&amp;s0&amp;e1&amp;e0</TD></TR>
+                      <TR><TD PORT='e1'>e1</TD><TD PORT='s0'>s0</TD></TR>
+                      <TR><TD PORT='xe0'>xe0</TD><TD PORT='s1'>s1</TD></TR>
+                      <TR><TD PORT='xe1'>xe1</TD><TD PORT='out'>out</TD></TR>
+                   </TABLE>> color=red shape=plaintext]
+
+    TILE1_COUNTER_2:count_match2:e -> TILE1_FSM_1:e0:w [color=red]
+    TILE1_FSM_0:OUT:e -> TILE1_FSM_1:e1:w [color=red]
+
+    TILE1_FSM_2 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE1_FSM_2</b><br/><br/><br/><br/>out = e0&amp;e1</TD></TR>
+                      <TR><TD PORT='e1'>e1</TD><TD PORT='s0'>s0</TD></TR>
+                      <TR><TD PORT='xe0'>xe0</TD><TD PORT='s1'>s1</TD></TR>
+                      <TR><TD PORT='xe1'>xe1</TD><TD PORT='out'>out</TD></TR>
+                   </TABLE>> color=red shape=plaintext]
+
+    TILE1_COUNTER_0:count_match1:e -> TILE1_FSM_2:e0:w [color=red]
+    TILE1_FSM_0:OUT:e -> TILE1_FSM_2:e1:w [color=red]
+
+
+    TILE1_COUNTER_0 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                    <TR><TD PORT='reset'>reset</TD><TD ROWSPAN='4'><b>TILE1_COUNTER_0</b><br/><br/>evAction = Shift Right</TD><TD PORT='count_zero'>zero</TD></TR>
+                    <TR><TD PORT='event'>event</TD><TD PORT='count_match1'>match1</TD></TR>
+                    <TR><TD PORT='mode0'>mode0</TD><TD PORT='count_match2'>match2</TD></TR>
+                    <TR><TD PORT='mode1'>mode1</TD></TR>
+               </TABLE>> color=blue shape=plaintext]
+
+    TILE1_LUT_0:OUT:e -> TILE1_COUNTER_0:reset:w [color=blue]
+    TILE1_BOUNDARY:in1:e -> TILE1_COUNTER_0:event:w [color=blue]
+    TILE1_BOUNDARY:in2:e -> TILE1_COUNTER_0:mode0:w [color=blue]
+    1 -> TILE1_COUNTER_0:mode1:w [color=blue]
+
+    TILE1_COUNTER_1 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                    <TR><TD PORT='reset'>reset</TD><TD ROWSPAN='4'><b>TILE1_COUNTER_1</b><br/><br/>evAction = Shift Right</TD><TD PORT='count_zero'>zero</TD></TR>
+                    <TR><TD PORT='event'>event</TD><TD PORT='count_match1'>match1</TD></TR>
+                    <TR><TD PORT='mode0'>mode0</TD><TD PORT='count_match2'>match2</TD></TR>
+                    <TR><TD PORT='mode1'>mode1</TD></TR>
+               </TABLE>> color=blue shape=plaintext]
+
+    TILE1_LUT_2:OUT:e -> TILE1_COUNTER_1:reset:w [color=blue]
+    TILE1_BOUNDARY:in1:e -> TILE1_COUNTER_1:event:w [color=blue]
+    TILE1_BOUNDARY:in2:e -> TILE1_COUNTER_1:mode0:w [color=blue]
+    1 -> TILE1_COUNTER_1:mode1:w [color=blue]
+
+    TILE1_COUNTER_2 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                    <TR><TD PORT='reset'>reset</TD><TD ROWSPAN='4'><b>TILE1_COUNTER_2</b><br/><br/>evAction = None</TD><TD PORT='count_zero'>zero</TD></TR>
+                    <TR><TD PORT='event'>event</TD><TD PORT='count_match1'>match1</TD></TR>
+                    <TR><TD PORT='mode0'>mode0</TD><TD PORT='count_match2'>match2</TD></TR>
+                    <TR><TD PORT='mode1'>mode1</TD></TR>
+               </TABLE>> color=blue shape=plaintext]
+
+    TILE1_LUT_2:OUT:e -> TILE1_COUNTER_2:reset:w [color=blue]
+    TILE1_BOUNDARY:in2:e -> TILE1_COUNTER_2:mode0:w [color=blue]
+    1 -> TILE1_COUNTER_2:mode1:w [color=blue]
+
+
+    TILE1_HLC [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE1_HLC</b></TD></TR>
+                      <TR><TD PORT='e1'>e1</TD></TR>
+                      <TR><TD PORT='e2'>e2</TD></TR>
+                      <TR><TD PORT='e3'>e3</TD></TR>
+                  </TABLE>> color=cyan shape=plaintext]
+
+    TILE1_COUNTER_2:count_match1:e -> TILE1_HLC:e0:w [color=cyan]
+    TILE1_FSM_2:OUT:e -> TILE1_HLC:e1:w [color=cyan]
+    TILE1_FSM_1:OUT:e -> TILE1_HLC:e2:w [color=cyan]
+    TILE1_LUT_1:OUT:e -> TILE1_HLC:e3:w [color=cyan]
+
+
+    TILE1_BOUNDARY [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD><b>TILE1_BOUNDARY</b></TD></TR>
+                       <TR><TD PORT='in0'>boundaryInput0  &#x2191;</TD></TR>
+                       <TR><TD PORT='in1'>boundaryInput1  &#x2192;</TD></TR>
+                       <TR><TD PORT='in2'>boundaryInput2  &#x2193;</TD></TR>
+                       <TR><TD PORT='in3'>boundaryInput3  &#x2192;</TD></TR>
+                       <TR><TD PORT='in4'>boundaryInput4  &#x2192;</TD></TR>
+                       <TR><TD PORT='in5'>boundaryInput5  &#x2192;</TD></TR>
+                       <TR><TD PORT='in6'>boundaryInput6  &#x2192;</TD></TR>
+                       <TR><TD PORT='in7'>boundaryInput7  &#x2192;</TD></TR>
+                   </TABLE>> color=black shape=plaintext]
+
+    TILE1_BOUNDARY_OUT [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD><b>TILE1_BOUNDARY</b></TD></TR>
+                       <TR><TD PORT='out0'>out0</TD></TR>
+                       <TR><TD PORT='out1'>out1</TD></TR>
+                       <TR><TD PORT='out2'>out2</TD></TR>
+                       <TR><TD PORT='out3'>out3</TD></TR>
+                       <TR><TD PORT='out4'>out4</TD></TR>
+                       <TR><TD PORT='out5'>out5</TD></TR>
+                       <TR><TD PORT='out6'>out6</TD></TR>
+                       <TR><TD PORT='out7'>out7</TD></TR>
+                   </TABLE>> color=black shape=plaintext]
+
+
+
+
+    TILE2_OUTLUT_0 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_OUTLUT_0</b><br/><br/>out = i0</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                   </TABLE>> color=green shape=plaintext]
+    TILE2_OUTLUT_0:out:e -> TILE2_BOUNDARY_OUT:out0:w [color=black]
+
+    TILE2_BOUNDARY:in3:e -> TILE2_OUTLUT_0:i0:w [color=green]
+
+    TILE2_OUTLUT_1 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_OUTLUT_1</b><br/><br/>out = i0</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                   </TABLE>> color=green shape=plaintext]
+    TILE2_OUTLUT_1:out:e -> TILE2_BOUNDARY_OUT:out1:w [color=black]
+
+    TILE2_BOUNDARY:in4:e -> TILE2_OUTLUT_1:i0:w [color=green]
+
+
+
+    TILE2_OUTLUT_4 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_OUTLUT_4</b><br/><br/>out = i0|i1</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                   </TABLE>> color=green shape=plaintext]
+    TILE2_OUTLUT_4:out:e -> TILE2_BOUNDARY_OUT:out4:w [color=black]
+
+    TILE2_COUNTER_1:count_match1:e -> TILE2_OUTLUT_4:i0:w [color=green]
+    TILE2_FSM_0:OUT:e -> TILE2_OUTLUT_4:i1:w [color=green]
+
+    TILE2_OUTLUT_5 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_OUTLUT_5</b><br/><br/>out = i0</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                   </TABLE>> color=green shape=plaintext]
+    TILE2_OUTLUT_5:out:e -> TILE2_BOUNDARY_OUT:out5:w [color=black]
+
+    TILE2_BOUNDARY:in6:e -> TILE2_OUTLUT_5:i0:w [color=green]
+
+
+
+
+
+
+    TILE2_LUT_0 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_LUT_0</b><br/><br/>out = i0|i1</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                       <TR><TD PORT='i3'>i3</TD></TR>
+                   </TABLE>> color=orange shape=plaintext]
+
+    TILE2_BOUNDARY:in1:e -> TILE2_LUT_0:i0:w [color=orange]
+    TILE2_BOUNDARY:in5:e -> TILE2_LUT_0:i1:w [color=orange]
+
+    TILE2_LUT_1 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_LUT_1</b><br/><br/>out = !i0|i1</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                       <TR><TD PORT='i3'>i3</TD></TR>
+                   </TABLE>> color=orange shape=plaintext]
+
+    TILE2_COUNTER_1:count_match2:e -> TILE2_LUT_1:i0:w [color=orange]
+    TILE2_FSM_0:OUT:e -> TILE2_LUT_1:i1:w [color=orange]
+
+    TILE2_LUT_2 [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD PORT='i0'>i0</TD><TD ROWSPAN='4'><b>TILE2_LUT_2</b><br/><br/>out = i0|i1</TD></TR>
+                       <TR><TD PORT='i1'>i1</TD><TD PORT='out'>out</TD></TR>
+                       <TR><TD PORT='i2'>i2</TD></TR>
+                       <TR><TD PORT='i3'>i3</TD></TR>
+                   </TABLE>> color=orange shape=plaintext]
+
+    TILE2_COUNTER_2:count_match1:e -> TILE2_LUT_2:i0:w [color=orange]
+    TILE2_FSM_0:OUT:e -> TILE2_LUT_2:i1:w [color=orange]
+
+
+    TILE2_FSM_0 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE2_FSM_0</b><br/><br/>s0 = !s1&amp;e1&amp;!e0 | !s1&amp;s0&amp;!e0<br/>s1 = !s1&amp;s0&amp;e0 | s1&amp;!s0&amp;e1<br/>out = !s0 | s1</TD></TR>
+                      <TR><TD PORT='e1'>e1</TD><TD PORT='s0'>s0</TD></TR>
+                      <TR><TD PORT='xe0'>xe0</TD><TD PORT='s1'>s1</TD></TR>
+                      <TR><TD PORT='xe1'>xe1</TD><TD PORT='out'>out</TD></TR>
+                   </TABLE>> color=red shape=plaintext]
+
+    TILE2_COUNTER_0:count_match1:e -> TILE2_FSM_0:e0:w [color=red]
+    TILE2_LUT_0:OUT:e -> TILE2_FSM_0:e1:w [color=red]
+
+
+    TILE2_FSM_2 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE2_FSM_2</b><br/><br/>s0 = !s0&amp;!e1&amp;e0 | s0&amp;!e1&amp;!e0<br/>s1 = s1&amp;!s0&amp;!e1 | s1&amp;!e1&amp;!e0 | !s1&amp;s0&amp;!e1&amp;e0<br/>out = s1&amp;s0&amp;!e1&amp;e0</TD></TR>
+                      <TR><TD PORT='e1'>e1</TD><TD PORT='s0'>s0</TD></TR>
+                      <TR><TD PORT='xe0'>xe0</TD><TD PORT='s1'>s1</TD></TR>
+                      <TR><TD PORT='xe1'>xe1</TD><TD PORT='out'>out</TD></TR>
+                   </TABLE>> color=red shape=plaintext]
+
+    TILE2_COUNTER_2:count_match1:e -> TILE2_FSM_2:e0:w [color=red]
+    TILE2_FSM_0:OUT:e -> TILE2_FSM_2:e1:w [color=red]
+
+
+    TILE2_COUNTER_0 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                    <TR><TD PORT='reset'>reset</TD><TD ROWSPAN='4'><b>TILE2_COUNTER_0</b><br/><br/>evAction = None</TD><TD PORT='count_zero'>zero</TD></TR>
+                    <TR><TD PORT='event'>event</TD><TD PORT='count_match1'>match1</TD></TR>
+                    <TR><TD PORT='mode0'>mode0</TD><TD PORT='count_match2'>match2</TD></TR>
+                    <TR><TD PORT='mode1'>mode1</TD></TR>
+               </TABLE>> color=blue shape=plaintext]
+
+    TILE2_COUNTER_0:count_match1:e -> TILE2_COUNTER_0:reset:w [color=blue]
+    TILE2_COUNTER_2:count_match1:e -> TILE2_COUNTER_0:mode0:w [color=blue]
+    1 -> TILE2_COUNTER_0:mode1:w [color=blue]
+
+    TILE2_COUNTER_1 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                    <TR><TD PORT='reset'>reset</TD><TD ROWSPAN='4'><b>TILE2_COUNTER_1</b><br/><br/>evAction = Load</TD><TD PORT='count_zero'>zero</TD></TR>
+                    <TR><TD PORT='event'>event</TD><TD PORT='count_match1'>match1</TD></TR>
+                    <TR><TD PORT='mode0'>mode0</TD><TD PORT='count_match2'>match2</TD></TR>
+                    <TR><TD PORT='mode1'>mode1</TD></TR>
+               </TABLE>> color=blue shape=plaintext]
+
+    TILE2_LUT_1:OUT:e -> TILE2_COUNTER_1:event:w [color=blue]
+    TILE2_BOUNDARY:in0:e -> TILE2_COUNTER_1:mode0:w [color=blue]
+    1 -> TILE2_COUNTER_1:mode1:w [color=blue]
+
+    TILE2_COUNTER_2 [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                    <TR><TD PORT='reset'>reset</TD><TD ROWSPAN='4'><b>TILE2_COUNTER_2</b><br/><br/>evAction = None</TD><TD PORT='count_zero'>zero</TD></TR>
+                    <TR><TD PORT='event'>event</TD><TD PORT='count_match1'>match1</TD></TR>
+                    <TR><TD PORT='mode0'>mode0</TD><TD PORT='count_match2'>match2</TD></TR>
+                    <TR><TD PORT='mode1'>mode1</TD></TR>
+               </TABLE>> color=blue shape=plaintext]
+
+    TILE2_LUT_2:OUT:e -> TILE2_COUNTER_2:reset:w [color=blue]
+    TILE2_BOUNDARY:in0:e -> TILE2_COUNTER_2:mode0:w [color=blue]
+    1 -> TILE2_COUNTER_2:mode1:w [color=blue]
+
+
+    TILE2_HLC [label=<<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                      <TR><TD PORT='e0'>e0</TD><TD ROWSPAN='4'><b>TILE2_HLC</b></TD></TR>
+                      <TR><TD PORT='e1'>e1</TD></TR>
+                      <TR><TD PORT='e2'>e2</TD></TR>
+                      <TR><TD PORT='e3'>e3</TD></TR>
+                  </TABLE>> color=cyan shape=plaintext]
+
+    TILE2_COUNTER_2:count_match1:e -> TILE2_HLC:e0:w [color=cyan]
+    TILE2_FSM_2:OUT:e -> TILE2_HLC:e1:w [color=cyan]
+    TILE2_COUNTER_0:count_match1:e -> TILE2_HLC:e2:w [color=cyan]
+
+
+    TILE2_BOUNDARY [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD><b>TILE2_BOUNDARY</b></TD></TR>
+                       <TR><TD PORT='in0'>boundaryInput0  &#x2193;</TD></TR>
+                       <TR><TD PORT='in1'>boundaryInput1  &#x2192;</TD></TR>
+                       <TR><TD PORT='in2'>boundaryInput2  &#x2192;</TD></TR>
+                       <TR><TD PORT='in3'>boundaryInput3  &#x2192;</TD></TR>
+                       <TR><TD PORT='in4'>boundaryInput4  &#x2192;</TD></TR>
+                       <TR><TD PORT='in5'>boundaryInput5  &#x2192;</TD></TR>
+                       <TR><TD PORT='in6'>boundaryInput6  &#x2192;</TD></TR>
+                       <TR><TD PORT='in7'>boundaryInput7  &#x2192;</TD></TR>
+                   </TABLE>> color=black shape=plaintext]
+
+    TILE2_BOUNDARY_OUT [label= <<TABLE BORDER='0' CELLBORDER='1' CELLSPACING='0'>
+                       <TR><TD><b>TILE2_BOUNDARY</b></TD></TR>
+                       <TR><TD PORT='out0'>out0</TD></TR>
+                       <TR><TD PORT='out1'>out1</TD></TR>
+                       <TR><TD PORT='out2'>out2</TD></TR>
+                       <TR><TD PORT='out3'>out3</TD></TR>
+                       <TR><TD PORT='out4'>out4</TD></TR>
+                       <TR><TD PORT='out5'>out5</TD></TR>
+                       <TR><TD PORT='out6'>out6</TD></TR>
+                       <TR><TD PORT='out7'>out7</TD></TR>
+                   </TABLE>> color=black shape=plaintext]
+
+
+
+}
