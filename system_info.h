@@ -17,9 +17,9 @@
 // When set to TRUE, animation based on frames will run
 // When set to FALSE, simple tests can be run
 //
-#define ANIMATION              FALSE
+#define ANIMATION              TRUE
 
-#define MONOCHROMATIC          FALSE
+#define MONOCHROMATIC          TRUE
 
 #if LP589X
     // The LP589X EVM is independent mode

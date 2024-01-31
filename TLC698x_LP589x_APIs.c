@@ -231,7 +231,7 @@ void LED_Write_Black_ALL(void)
  */
 void LED_Write_White_ALL(void)
 {
-    LED_Write_RGB_Custom_ALL(0xFFFF, 0xFFFF, 0xFFFF);
+    LED_Write_RGB_Custom_ALL(0xFFFF, 0xFFFF, 0xFFFF); //0xFFFF;
 }
 
 /* Function Name: LED_Write_Red_ALL
