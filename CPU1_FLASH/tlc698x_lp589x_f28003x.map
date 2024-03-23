@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker Unix v22.6.1                   
 ******************************************************************************
->> Linked Thu Feb  1 13:11:51 2024
+>> Linked Fri Mar 22 17:35:56 2024
 
 OUTPUT FILE NAME:   <tlc698x_lp589x_f28003x.out>
 ENTRY POINT SYMBOL: "code_start"  address: 00080000
@@ -18,18 +18,18 @@ MEMORY CONFIGURATION
   RAMLS1                00008800   00000800  00000000  00000800  RWIX
   RAMLS2                00009000   00000800  00000000  00000800  RWIX
   RAMLS3                00009800   00000800  00000000  00000800  RWIX
-  RAMLS4567             0000a000   00002000  000001eb  00001e15  RWIX
+  RAMLS4567             0000a000   00002000  00000249  00001db7  RWIX
   RAMGS0                0000c000   00001000  00000000  00001000  RWIX
   RAMGS1                0000d000   00001000  00000000  00001000  RWIX
   RAMGS2                0000e000   00001000  00000000  00001000  RWIX
   RAMGS3                0000f000   00000ff8  00000000  00000ff8  RWIX
   BEGIN                 00080000   00000002  00000002  00000000  RWIX
   FLASH_BANK0_SEC0      00080002   00000ffe  00000000  00000ffe  RWIX
-  FLASH_BANK0_SEC1      00081000   00001000  00000168  00000e98  RWIX
+  FLASH_BANK0_SEC1      00081000   00001000  00000164  00000e9c  RWIX
   FLASH_BANK0_SEC2      00082000   00001000  00001000  00000000  RWIX
   FLASH_BANK0_SEC3      00083000   00001000  00001000  00000000  RWIX
-  FLASH_BANK0_SEC4      00084000   00001000  00000ff1  0000000f  RWIX
-  FLASH_BANK0_SEC5      00085000   00001000  00000fd6  0000002a  RWIX
+  FLASH_BANK0_SEC4      00084000   00001000  00000cff  00000301  RWIX
+  FLASH_BANK0_SEC5      00085000   00001000  00000000  00001000  RWIX
   FLASH_BANK0_SEC6      00086000   00001000  00000000  00001000  RWIX
   FLASH_BANK0_SEC7      00087000   00001000  00000000  00001000  RWIX
   FLASH_BANK0_SEC8      00088000   00001000  00000000  00001000  RWIX
@@ -86,11 +86,12 @@ codestart
 *          0    00080000    00000002     
                   00080000    00000002     f28003x_codestartbranch.obj (codestart)
 
-.cinit     0    00081130    0000003a     
-                  00081130    00000028     (.cinit..data.load) [load image, compression = lzss]
-                  00081158    00000006     (__TI_handler_table)
-                  0008115e    00000004     (.cinit..bss.load) [load image, compression = zero_init]
-                  00081162    00000008     (__TI_cinit_table)
+.cinit     0    00081130    00000036     
+                  00081130    00000023     (.cinit..data.load) [load image, compression = lzss]
+                  00081153    00000001     --HOLE-- [fill = 0]
+                  00081154    00000006     (__TI_handler_table)
+                  0008115a    00000004     (.cinit..bss.load) [load image, compression = zero_init]
+                  0008115e    00000008     (__TI_cinit_table)
 
 .reset     0    003fffc0    00000000     DSECT
 
@@ -100,16 +101,15 @@ codestart
 .init_array 
 *          0    00081000    00000000     UNINITIALIZED
 
-.data      0    0000a000    00000057     UNINITIALIZED
+.data      0    0000a000    00000053     UNINITIALIZED
                   0000a000    00000020     clb_config.obj (.data:TILE1HLCInstr)
                   0000a020    00000020     clb_config.obj (.data:TILE2HLCInstr)
                   0000a040    00000006     rts2800_fpu32_eabi.lib : exit.c.obj (.data)
-                  0000a046    00000004     frames.obj (.data:pFrameDataArray)
-                  0000a04a    00000004     led_hal.obj (.data:rxTileBase)
-                  0000a04e    00000004     led_hal.obj (.data:txTileBase)
-                  0000a052    00000002     rts2800_fpu32_eabi.lib : _lock.c.obj (.data:_lock)
-                  0000a054    00000002                            : _lock.c.obj (.data:_unlock)
-                  0000a056    00000001     main.obj (.data)
+                  0000a046    00000004     led_hal.obj (.data:rxTileBase)
+                  0000a04a    00000004     led_hal.obj (.data:txTileBase)
+                  0000a04e    00000002     rts2800_fpu32_eabi.lib : _lock.c.obj (.data:_lock)
+                  0000a050    00000002                            : _lock.c.obj (.data:_unlock)
+                  0000a052    00000001     main.obj (.data)
 
 .TI.ramfunc 
 *          0    00081000    0000012e     RUN ADDR = 00008000
@@ -124,191 +124,188 @@ codestart
                   00081114    00000016                   : flash.obj (.TI.ramfunc:Flash_enableECC)
                   0008112a    00000004                   : sysctl.obj (.TI.ramfunc)
 
-.bss       0    0000a058    00000194     UNINITIALIZED
+.bss       0    0000a058    000001f6     UNINITIALIZED
                   0000a058    00000100     led_hal.obj (.bss:clbRxRingBuff)
                   0000a158    00000079     TLC698x_LP589x_APIs.obj (.bss:img_mono)
-                  0000a1d1    00000001     led_hal.obj (.bss:ringBuffHead)
-                  0000a1d2    00000008     led_hal.obj (.bss:ledXmtBuffer)
-                  0000a1da    00000004     TLC698x_LP589x_APIs.obj (.bss)
-                  0000a1de    00000004     TLC698x_LP589x_APIs.obj (.bss:data)
-                  0000a1e2    00000004     led_hal.obj (.bss:ledRcvBuffer)
-                  0000a1e6    00000002     led_hal.obj (.bss:xmtBufPtr)
-                  0000a1e8    00000001     led_hal.obj (.bss:ringBuffTail)
-                  0000a1e9    00000001     led_hal.obj (.bss:xmtCount)
-                  0000a1ea    00000001     led_hal.obj (.bss:xmtDone)
-                  0000a1eb    00000001     led_hal.obj (.bss:xmtXferSize)
+                  0000a1d1    00000062     system_info.obj (.bss:chip_status)
+                  0000a233    00000001     led_hal.obj (.bss:ringBuffHead)
+                  0000a234    00000008     led_hal.obj (.bss:ledXmtBuffer)
+                  0000a23c    00000004     TLC698x_LP589x_APIs.obj (.bss)
+                  0000a240    00000004     TLC698x_LP589x_APIs.obj (.bss:data)
+                  0000a244    00000004     led_hal.obj (.bss:ledRcvBuffer)
+                  0000a248    00000002     led_hal.obj (.bss:xmtBufPtr)
+                  0000a24a    00000001     led_hal.obj (.bss:ringBuffTail)
+                  0000a24b    00000001     led_hal.obj (.bss:xmtCount)
+                  0000a24c    00000001     led_hal.obj (.bss:xmtDone)
+                  0000a24d    00000001     led_hal.obj (.bss:xmtXferSize)
 
 .text.1    0    00082000    00001000     
                   00082000    00000461     clb_config.obj (.text:initTILE1)
                   00082461    00000461     clb_config.obj (.text:initTILE2)
-                  000828c2    00000141     led_hal.obj (.text:LED_HAL_clbTransferNonBlocking)
-                  00082a03    00000126     main.obj (.text:prepareFrame)
-                  00082b29    00000120     driverlib.lib : sysctl.obj (.text:SysCtl_setClock)
-                  00082c49    00000001     led_hal.obj (.text:LED_HAL_setupInterrupts)
-                  00082c4a    00000114     main.obj (.text:main)
-                  00082d5e    000000fe     driverlib.lib : sysctl.obj (.text:SysCtl_isPLLValid)
-                  00082e5c    000000f4     board.obj (.text:CCSI1_TX_TILE_init)
-                  00082f50    00000093     board.obj (.text:CCSI1_RX_TILE_init)
-                  00082fe3    0000001d     rts2800_fpu32_eabi.lib : memcpy.c.obj (.text)
+                  000828c2    00000303     TLC698x_LP589x_APIs.obj (.text:LED_lod_lsd_detection)
+                  00082bc5    00000141     led_hal.obj (.text:LED_HAL_clbTransferNonBlocking)
+                  00082d06    00000120     driverlib.lib : sysctl.obj (.text:SysCtl_setClock)
+                  00082e26    000000fe                   : sysctl.obj (.text:SysCtl_isPLLValid)
+                  00082f24    000000d3     device.obj (.text:Device_enableAllPeripherals)
+                  00082ff7    00000009     TLC698x_LP589x_APIs.obj (.text:LED_Write_White_ALL)
 
 .text.2    0    00083000    00001000     
-                  00083000    000000f4     board.obj (.text:CCSI2_TX_TILE_init)
-                  000830f4    000000ef     led_hal.obj (.text:LED_HAL_initClbLogic)
-                  000831e3    000000d3     device.obj (.text:Device_enableAllPeripherals)
-                  000832b6    00000093     board.obj (.text:EPWM_init)
-                  00083349    0000008e     board.obj (.text:CCSI2_RX_TILE_init)
-                  000833d7    0000008e     main.obj (.text:configCPUTimer)
-                  00083465    00000088     rts2800_fpu32_eabi.lib : fs_div28.asm.obj (.text)
-                  000834ed    0000007f     driverlib.lib : interrupt.obj (.text:Interrupt_clearIFR)
-                  0008356c    0000007d     led_hal.obj (.text:INT_CCSI1_TX_TILE_ISR)
-                  000835e9    0000007d     led_hal.obj (.text:INT_CCSI2_TX_TILE_ISR)
-                  00083666    00000073     board.obj (.text:CLB_configLocalInputMux)
-                  000836d9    00000073     driverlib.lib : sysctl.obj (.text:DCC_setCounterSeeds)
-                  0008374c    00000071     TLC698x_LP589x_APIs.obj (.text:LED_sendSRAM)
-                  000837bd    0000006a     driverlib.lib : gpio.obj (.text:GPIO_setAnalogMode)
-                  00083827    00000065     led_hal.obj (.text:INT_CCSI1_RX_TILE_ISR)
-                  0008388c    00000065     led_hal.obj (.text:INT_CCSI2_RX_TILE_ISR)
-                  000838f1    00000065     driverlib.lib : sysctl.obj (.text:SysCtl_getClock)
-                  00083956    0000005b     led_hal.obj (.text:LED_HAL_disableClbReceiver)
-                  000839b1    0000005a     device.obj (.text:Device_init)
-                  00083a0b    00000059     driverlib.lib : clb.obj (.text:CLB_configCounterLoadMatch)
-                  00083a64    00000059     led_hal.obj (.text:LED_HAL_enableClbReceiver)
-                  00083abd    00000001     rts2800_fpu32_eabi.lib : startup.c.obj (.text)
-                  00083abe    00000056     main.obj (.text:animateFrame)
-                  00083b14    00000056     CCSI_Socket.obj (.text:processReadData)
-                  00083b6a    00000052     driverlib.lib : gpio.obj (.text:GPIO_setPadConfig)
-                  00083bbc    0000004e                   : interrupt.obj (.text:Interrupt_disable)
-                  00083c0a    0000004c     CCSI_Socket.obj (.text:CCSI_write)
-                  00083c56    00000049     driverlib.lib : sysctl.obj (.text:SysCtl_selectOscSource)
-                  00083c9f    00000045                   : sysctl.obj (.text:SysCtl_pollX1Counter)
-                  00083ce4    00000043     led_hal.obj (.text:LED_HAL_startLedClocks)
-                  00083d27    0000003d     driverlib.lib : interrupt.obj (.text:Interrupt_initModule)
-                  00083d64    0000003d                   : sysctl.obj (.text:SysCtl_selectXTAL)
-                  00083da1    0000003c     main.obj (.text:fadeFrame)
-                  00083ddd    00000038     board.obj (.text:PinMux_init)
-                  00083e15    00000038     driverlib.lib : xbar.obj (.text:XBAR_setOutputMuxConfig)
-                  00083e4d    00000037                   : gpio.obj (.text:GPIO_setPinConfig)
-                  00083e84    00000037                   : gpio.obj (.text:GPIO_setQualificationMode)
-                  00083ebb    00000037                   : interrupt.obj (.text:Interrupt_enable)
-                  00083ef2    00000034     TLC698x_LP589x_APIs.obj (.text:LED_Write_RGB_Custom_ALL)
-                  00083f26    00000032     CCSI_Socket.obj (.text:CCSI_write_sync)
-                  00083f58    00000031     board.obj (.text:Board_init)
-                  00083f89    00000031     driverlib.lib : gpio.obj (.text:GPIO_setDirectionMode)
-                  00083fba    00000030     rts2800_fpu32_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss)
-                  00083fea    00000016     driverlib.lib : sysctl.obj (.text:DCC_disableDoneSignal)
+                  00083000    000000f4     board.obj (.text:CCSI1_TX_TILE_init)
+                  000830f4    000000f4     board.obj (.text:CCSI2_TX_TILE_init)
+                  000831e8    000000ef     led_hal.obj (.text:LED_HAL_initClbLogic)
+                  000832d7    00000001     led_hal.obj (.text:LED_HAL_setupInterrupts)
+                  000832d8    000000c0     main.obj (.text:main)
+                  00083398    0000009c     rts2800_fpu32_eabi.lib : fd_add28.asm.obj (.text)
+                  00083434    00000093     board.obj (.text:CCSI1_RX_TILE_init)
+                  000834c7    00000093     board.obj (.text:EPWM_init)
+                  0008355a    0000008e     board.obj (.text:CCSI2_RX_TILE_init)
+                  000835e8    0000008e     main.obj (.text:configCPUTimer)
+                  00083676    0000008b     rts2800_fpu32_eabi.lib : fd_div28.asm.obj (.text)
+                  00083701    00000088                            : fs_div28.asm.obj (.text)
+                  00083789    0000007f     driverlib.lib : interrupt.obj (.text:Interrupt_clearIFR)
+                  00083808    0000007d     led_hal.obj (.text:INT_CCSI1_TX_TILE_ISR)
+                  00083885    0000007d     led_hal.obj (.text:INT_CCSI2_TX_TILE_ISR)
+                  00083902    00000073     board.obj (.text:CLB_configLocalInputMux)
+                  00083975    00000073     driverlib.lib : sysctl.obj (.text:DCC_setCounterSeeds)
+                  000839e8    0000006a                   : gpio.obj (.text:GPIO_setAnalogMode)
+                  00083a52    00000065     led_hal.obj (.text:INT_CCSI1_RX_TILE_ISR)
+                  00083ab7    00000065     led_hal.obj (.text:INT_CCSI2_RX_TILE_ISR)
+                  00083b1c    00000065     driverlib.lib : sysctl.obj (.text:SysCtl_getClock)
+                  00083b81    0000005b     led_hal.obj (.text:LED_HAL_disableClbReceiver)
+                  00083bdc    0000005a     device.obj (.text:Device_init)
+                  00083c36    00000059     driverlib.lib : clb.obj (.text:CLB_configCounterLoadMatch)
+                  00083c8f    00000059     led_hal.obj (.text:LED_HAL_enableClbReceiver)
+                  00083ce8    00000056     CCSI_Socket.obj (.text:processReadData)
+                  00083d3e    00000052     driverlib.lib : gpio.obj (.text:GPIO_setPadConfig)
+                  00083d90    0000004e                   : interrupt.obj (.text:Interrupt_disable)
+                  00083dde    0000004c     CCSI_Socket.obj (.text:CCSI_write)
+                  00083e2a    00000049     driverlib.lib : sysctl.obj (.text:SysCtl_selectOscSource)
+                  00083e73    00000045                   : sysctl.obj (.text:SysCtl_pollX1Counter)
+                  00083eb8    00000043     led_hal.obj (.text:LED_HAL_startLedClocks)
+                  00083efb    0000003d     driverlib.lib : interrupt.obj (.text:Interrupt_initModule)
+                  00083f38    0000003d                   : sysctl.obj (.text:SysCtl_selectXTAL)
+                  00083f75    00000038     board.obj (.text:PinMux_init)
+                  00083fad    00000038     driverlib.lib : xbar.obj (.text:XBAR_setOutputMuxConfig)
+                  00083fe5    0000001b                   : clb.obj (.text:CLB_isBaseValid)
 
-.text.3    0    00084000    00000598     
-                  00084000    0000002f     driverlib.lib : xbar.obj (.text:XBAR_setCLBMuxConfig)
-                  0008402f    0000002e                   : clb.obj (.text:CLB_writeInterface)
-                  0008405d    0000002d     board.obj (.text:INTERRUPT_init)
-                  0008408a    0000002b     driverlib.lib : epwm.obj (.text:EPWM_isBaseValid)
-                  000840b5    0000002b     rts2800_fpu32_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit)
-                  000840e0    00000029                            : exit.c.obj (.text)
-                  00084109    00000024     driverlib.lib : sysctl.obj (.text:DCC_enableSingleShotMode)
-                  0008412d    00000024     led_hal.obj (.text:LED_HAL_clbRxRingBuffWrite)
-                  00084151    00000022     led_hal.obj (.text:LED_HAL_clbRxRingBuffRead)
-                  00084173    00000020     driverlib.lib : sysctl.obj (.text:SysCtl_selectXTALSingleEnded)
-                  00084193    0000001e     board.obj (.text:CLB_SCLK_1_init)
-                  000841b1    0000001e     board.obj (.text:CLB_SCLK_2_init)
-                  000841cf    0000001e     board.obj (.text:CLB_SOUT_1_init)
-                  000841ed    0000001e     board.obj (.text:CLB_SOUT_2_init)
-                  0008420b    0000001e     board.obj (.text:CLB_SPICLK_1_init)
-                  00084229    0000001e     driverlib.lib : sysctl.obj (.text:DCC_setCounter0ClkSource)
-                  00084247    0000001e                   : sysctl.obj (.text:DCC_setCounter1ClkSource)
-                  00084265    0000001e                   : interrupt.obj (.text:Interrupt_initVectorTable)
-                  00084283    0000001e     TLC698x_LP589x_APIs.obj (.text:LED_Write_Reg_Broadcast)
-                  000842a1    0000001c     main.obj (.text:initCPUTimer)
-                  000842bd    0000001c     TLC698x_LP589x_APIs.obj (.text:sendSYNCinternal)
-                  000842d9    0000001b     driverlib.lib : clb.obj (.text:CLB_isBaseValid)
-                  000842f4    0000001b                   : xbar.obj (.text:XBAR_isBaseValid)
-                  0008430f    0000001a                   : sysctl.obj (.text:SysCtl_getLowSpeedClock)
-                  00084329    00000019     led_hal.obj (.text:LED_HAL_setupProfilingGPIO)
-                  00084342    00000017     driverlib.lib : cputimer.obj (.text:CPUTimer_isBaseValid)
-                  00084359    00000017                   : sysctl.obj (.text:SysCtl_enablePeripheral)
-                  00084370    00000017     main.obj (.text:cpuTimer0ISR)
-                  00084387    00000017     rts2800_fpu32_eabi.lib : boot28.asm.obj (.text)
-                  0008439e    00000016     driverlib.lib : epwm.obj (.text:EPWM_setEmulationMode)
-                  000843b4    00000016                   : interrupt.obj (.text:Interrupt_defaultHandler)
-                  000843ca    00000015                   : sysctl.obj (.text:DCC_clearDoneFlag)
-                  000843df    00000015                   : sysctl.obj (.text:DCC_clearErrorFlag)
-                  000843f4    00000015                   : sysctl.obj (.text:DCC_disableErrorSignal)
-                  00084409    00000015                   : sysctl.obj (.text:DCC_isBaseValid)
-                  0008441e    00000014                   : sysctl.obj (.text:DCC_disableModule)
-                  00084432    00000014                   : sysctl.obj (.text:DCC_enableModule)
-                  00084446    00000014                   : gpio.obj (.text:GPIO_isPinValid)
-                  0008445a    00000014                   : sysctl.obj (.text:SysCtl_setPLLSysClk)
-                  0008446e    00000013                   : cputimer.obj (.text:CPUTimer_setEmulationMode)
-                  00084481    00000012     TLC698x_LP589x_APIs.obj (.text:LED_Set_Chip_Index)
-                  00084493    00000011     board.obj (.text:SYNC_init)
-                  000844a4    00000010     device.obj (.text:Device_initGPIO)
-                  000844b4    00000010     driverlib.lib : flash.obj (.text:Flash_isCtrlBaseValid)
-                  000844c4    00000010                   : flash.obj (.text:Flash_isECCBaseValid)
-                  000844d4    0000000e                   : clb.obj (.text:CLB_isAddressValid)
-                  000844e2    0000000d                   : interrupt.obj (.text:Interrupt_disableGlobal)
-                  000844ef    0000000d                   : interrupt.obj (.text:Interrupt_enableGlobal)
-                  000844fc    0000000d     rts2800_fpu32_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset)
-                  00084509    0000000d     TLC698x_LP589x_APIs.obj (.text:setData)
-                  00084516    0000000c     rts2800_fpu32_eabi.lib : args_main.c.obj (.text)
-                  00084522    0000000b     driverlib.lib : sysctl.obj (.text:SysCtl_isMCDClockFailureDetected)
-                  0008452d    0000000a                   : interrupt.obj (.text:Interrupt_illegalOperationHandler)
-                  00084537    0000000a                   : interrupt.obj (.text:Interrupt_nmiHandler)
-                  00084541    00000009     rts2800_fpu32_eabi.lib : _lock.c.obj (.text)
-                  0008454a    00000008     led_hal.obj (.text:LED_HAL_ringBufferReset)
-                  00084552    00000008     rts2800_fpu32_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none)
-                  0008455a    00000008     f28003x_codestartbranch.obj (.text)
-                  00084562    00000007     driverlib.lib : sysctl.obj (.text:SysCtl_resetMCD)
-                  00084569    00000006     TLC698x_LP589x_APIs.obj (.text:LED_Write_Black_ALL)
-                  0008456f    00000006     board.obj (.text:myCLBINPUTXBARINPUT0_init)
-                  00084575    00000006     board.obj (.text:myCLBINPUTXBARINPUT1_init)
-                  0008457b    00000006     board.obj (.text:myCLBINPUTXBARINPUT2_init)
-                  00084581    00000006     board.obj (.text:myCLBINPUTXBARINPUT3_init)
-                  00084587    00000004     led_hal.obj (.text:LED_HAL_clbSyncTransferStart)
-                  0008458b    00000004     TLC698x_LP589x_APIs.obj (.text:sendSYNC)
-                  0008458f    00000004     TLC698x_LP589x_APIs.obj (.text:sendSYNCnoWait)
-                  00084593    00000003     device.obj (.text:__error__)
-                  00084596    00000002     rts2800_fpu32_eabi.lib : pre_init.c.obj (.text)
+.text.3    0    00084000    000007c9     
+                  00084000    00000037     driverlib.lib : gpio.obj (.text:GPIO_setPinConfig)
+                  00084037    00000037                   : gpio.obj (.text:GPIO_setQualificationMode)
+                  0008406e    00000037                   : interrupt.obj (.text:Interrupt_enable)
+                  000840a5    00000034     TLC698x_LP589x_APIs.obj (.text:LED_Write_RGB_Custom_ALL)
+                  000840d9    00000032     CCSI_Socket.obj (.text:CCSI_write_sync)
+                  0008410b    00000031     board.obj (.text:Board_init)
+                  0008413c    00000031     CCSI_Socket.obj (.text:CCSI_read)
+                  0008416d    00000031     driverlib.lib : gpio.obj (.text:GPIO_setDirectionMode)
+                  0008419e    00000030     rts2800_fpu32_eabi.lib : copy_decompress_lzss.c.obj (.text:decompress:lzss)
+                  000841ce    0000002f     driverlib.lib : xbar.obj (.text:XBAR_setCLBMuxConfig)
+                  000841fd    0000002e                   : clb.obj (.text:CLB_writeInterface)
+                  0008422b    0000002d     board.obj (.text:INTERRUPT_init)
+                  00084258    0000002b     driverlib.lib : epwm.obj (.text:EPWM_isBaseValid)
+                  00084283    0000002b     rts2800_fpu32_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit)
+                  000842ae    00000029                            : exit.c.obj (.text)
+                  000842d7    00000024     driverlib.lib : sysctl.obj (.text:DCC_enableSingleShotMode)
+                  000842fb    00000024     led_hal.obj (.text:LED_HAL_clbRxRingBuffWrite)
+                  0008431f    00000022     led_hal.obj (.text:LED_HAL_clbRxRingBuffRead)
+                  00084341    00000020     driverlib.lib : sysctl.obj (.text:SysCtl_selectXTALSingleEnded)
+                  00084361    0000001e     board.obj (.text:CLB_SCLK_1_init)
+                  0008437f    0000001e     board.obj (.text:CLB_SCLK_2_init)
+                  0008439d    0000001e     board.obj (.text:CLB_SOUT_1_init)
+                  000843bb    0000001e     board.obj (.text:CLB_SOUT_2_init)
+                  000843d9    0000001e     board.obj (.text:CLB_SPICLK_1_init)
+                  000843f7    0000001e     driverlib.lib : sysctl.obj (.text:DCC_setCounter0ClkSource)
+                  00084415    0000001e                   : sysctl.obj (.text:DCC_setCounter1ClkSource)
+                  00084433    0000001e                   : interrupt.obj (.text:Interrupt_initVectorTable)
+                  00084451    0000001e     TLC698x_LP589x_APIs.obj (.text:LED_Write_Reg_Broadcast)
+                  0008446f    0000001d     rts2800_fpu32_eabi.lib : memcpy.c.obj (.text)
+                  0008448c    0000001c     main.obj (.text:initCPUTimer)
+                  000844a8    0000001c     TLC698x_LP589x_APIs.obj (.text:sendSYNCinternal)
+                  000844c4    0000001b     driverlib.lib : xbar.obj (.text:XBAR_isBaseValid)
+                  000844df    0000001b     rts2800_fpu32_eabi.lib : fd_toul28.asm.obj (.text)
+                  000844fa    0000001a     driverlib.lib : sysctl.obj (.text:SysCtl_getLowSpeedClock)
+                  00084514    00000019     led_hal.obj (.text:LED_HAL_setupProfilingGPIO)
+                  0008452d    00000017     driverlib.lib : cputimer.obj (.text:CPUTimer_isBaseValid)
+                  00084544    00000017                   : sysctl.obj (.text:SysCtl_enablePeripheral)
+                  0008455b    00000017     main.obj (.text:cpuTimer0ISR)
+                  00084572    00000017     rts2800_fpu32_eabi.lib : boot28.asm.obj (.text)
+                  00084589    00000016     driverlib.lib : sysctl.obj (.text:DCC_disableDoneSignal)
+                  0008459f    00000016                   : epwm.obj (.text:EPWM_setEmulationMode)
+                  000845b5    00000016                   : interrupt.obj (.text:Interrupt_defaultHandler)
+                  000845cb    00000016     rts2800_fpu32_eabi.lib : ul_tofd28.asm.obj (.text)
+                  000845e1    00000015     driverlib.lib : sysctl.obj (.text:DCC_clearDoneFlag)
+                  000845f6    00000015                   : sysctl.obj (.text:DCC_clearErrorFlag)
+                  0008460b    00000015                   : sysctl.obj (.text:DCC_disableErrorSignal)
+                  00084620    00000015                   : sysctl.obj (.text:DCC_isBaseValid)
+                  00084635    00000014                   : sysctl.obj (.text:DCC_disableModule)
+                  00084649    00000014                   : sysctl.obj (.text:DCC_enableModule)
+                  0008465d    00000014                   : gpio.obj (.text:GPIO_isPinValid)
+                  00084671    00000014                   : sysctl.obj (.text:SysCtl_setPLLSysClk)
+                  00084685    00000013                   : cputimer.obj (.text:CPUTimer_setEmulationMode)
+                  00084698    00000012     TLC698x_LP589x_APIs.obj (.text:LED_Set_Chip_Index)
+                  000846aa    00000011     board.obj (.text:SYNC_init)
+                  000846bb    00000010     device.obj (.text:Device_initGPIO)
+                  000846cb    00000010     driverlib.lib : flash.obj (.text:Flash_isCtrlBaseValid)
+                  000846db    00000010                   : flash.obj (.text:Flash_isECCBaseValid)
+                  000846eb    0000000e                   : clb.obj (.text:CLB_isAddressValid)
+                  000846f9    0000000e     rts2800_fpu32_eabi.lib : fd_sub28.asm.obj (.text)
+                  00084707    0000000d     driverlib.lib : interrupt.obj (.text:Interrupt_disableGlobal)
+                  00084714    0000000d                   : interrupt.obj (.text:Interrupt_enableGlobal)
+                  00084721    0000000d     rts2800_fpu32_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init_nomemset)
+                  0008472e    0000000d     TLC698x_LP589x_APIs.obj (.text:setData)
+                  0008473b    0000000c     rts2800_fpu32_eabi.lib : args_main.c.obj (.text)
+                  00084747    0000000b     driverlib.lib : sysctl.obj (.text:SysCtl_isMCDClockFailureDetected)
+                  00084752    0000000a                   : interrupt.obj (.text:Interrupt_illegalOperationHandler)
+                  0008475c    0000000a                   : interrupt.obj (.text:Interrupt_nmiHandler)
+                  00084766    00000009     rts2800_fpu32_eabi.lib : _lock.c.obj (.text)
+                  0008476f    00000008     led_hal.obj (.text:LED_HAL_ringBufferReset)
+                  00084777    00000008     rts2800_fpu32_eabi.lib : copy_decompress_none.c.obj (.text:decompress:none)
+                  0008477f    00000008     f28003x_codestartbranch.obj (.text)
+                  00084787    00000007     TLC698x_LP589x_APIs.obj (.text:LED_Update_Chip_Status)
+                  0008478e    00000007     driverlib.lib : sysctl.obj (.text:SysCtl_resetMCD)
+                  00084795    00000006     TLC698x_LP589x_APIs.obj (.text:LED_Write_Black_ALL)
+                  0008479b    00000006     board.obj (.text:myCLBINPUTXBARINPUT0_init)
+                  000847a1    00000006     board.obj (.text:myCLBINPUTXBARINPUT1_init)
+                  000847a7    00000006     board.obj (.text:myCLBINPUTXBARINPUT2_init)
+                  000847ad    00000006     board.obj (.text:myCLBINPUTXBARINPUT3_init)
+                  000847b3    00000004     led_hal.obj (.text:LED_HAL_SclkInHz)
+                  000847b7    00000004     led_hal.obj (.text:LED_HAL_clbSyncTransferStart)
+                  000847bb    00000004     TLC698x_LP589x_APIs.obj (.text:sendSYNC)
+                  000847bf    00000004     TLC698x_LP589x_APIs.obj (.text:sendSYNCnoWait)
+                  000847c3    00000003     device.obj (.text:__error__)
+                  000847c6    00000002     rts2800_fpu32_eabi.lib : pre_init.c.obj (.text)
+                  000847c8    00000001                            : startup.c.obj (.text)
 
-.const.1   0    00084598    00000a59     
-                  00084598    00000900     frames.obj (.const:frame_data1)
-                  00084e98    00000100     frames.obj (.const:lookup_table_B)
-                  00084f98    00000053     main.obj (.const:.string)
-                  00084feb    00000002     frames.obj (.const:frame_size_x_dir)
-                  00084fed    00000002     frames.obj (.const:frame_size_y_dir)
-                  00084fef    00000001     system_info.obj (.const:CASCADED_UNITS)
-                  00084ff0    00000001     system_info.obj (.const)
-
-.const.2   0    00085000    00000fd6     
-                  00085000    00000900     frames.obj (.const:frame_data2)
-                  00085900    00000100     frames.obj (.const:lookup_table_G)
-                  00085a00    00000100     frames.obj (.const:lookup_table_R)
-                  00085b00    0000009b     driverlib.lib : flash.obj (.const:.string)
-                  00085b9b    00000001     --HOLE-- [fill = 0]
-                  00085b9c    0000009a                   : sysctl.obj (.const:.string)
-                  00085c36    00000098                   : epwm.obj (.const:.string)
-                  00085cce    00000098                   : gpio.obj (.const:.string)
-                  00085d66    00000097                   : clb.obj (.const:.string)
-                  00085dfd    00000001     --HOLE-- [fill = 0]
-                  00085dfe    00000051                   : interrupt.obj (.const:.string)
-                  00085e4f    00000001     --HOLE-- [fill = 0]
-                  00085e50    00000050                   : cputimer.obj (.const:.string)
-                  00085ea0    0000004e     board.obj (.const:.string)
-                  00085eee    0000004e     clb_config.obj (.const:.string)
-                  00085f3c    0000004e     led_hal.obj (.const:.string)
-                  00085f8a    0000004c     driverlib.lib : xbar.obj (.const:.string)
+.const     0    000847d0    00000536     
+                  000847d0    0000009b     driverlib.lib : flash.obj (.const:.string)
+                  0008486b    00000001     system_info.obj (.const:CASCADED_UNITS)
+                  0008486c    0000009a     driverlib.lib : sysctl.obj (.const:.string)
+                  00084906    00000098                   : epwm.obj (.const:.string)
+                  0008499e    00000098                   : gpio.obj (.const:.string)
+                  00084a36    00000097                   : clb.obj (.const:.string)
+                  00084acd    00000001     system_info.obj (.const)
+                  00084ace    00000053     main.obj (.const:.string)
+                  00084b21    00000001     --HOLE-- [fill = 0]
+                  00084b22    00000051     driverlib.lib : interrupt.obj (.const:.string)
+                  00084b73    00000001     --HOLE-- [fill = 0]
+                  00084b74    00000050                   : cputimer.obj (.const:.string)
+                  00084bc4    0000004e     board.obj (.const:.string)
+                  00084c12    0000004e     clb_config.obj (.const:.string)
+                  00084c60    0000004e     led_hal.obj (.const:.string)
+                  00084cae    0000004c     driverlib.lib : xbar.obj (.const:.string)
+                  00084cfa    0000000c     TLC698x_LP589x_APIs.obj (.const)
 
 MODULE SUMMARY
 
        Module                        code    ro data   rw data
        ------                        ----    -------   -------
     ./
-       frames.obj                    0       5380      4      
-       led_hal.obj                   1367    78        283    
-       main.obj                      909     83        1      
-       TLC698x_LP589x_APIs.obj       268     0         129    
-       CCSI_Socket.obj               212     0         0      
-       system_info.obj               0       2         0      
+       led_hal.obj                   1371    78        283    
+       TLC698x_LP589x_APIs.obj       942     12        129    
+       main.obj                      385     83        1      
+       CCSI_Socket.obj               261     0         0      
+       system_info.obj               0       2         98     
     +--+-----------------------------+-------+---------+---------+
-       Total:                        2756    5543      417    
+       Total:                        2959    175       511    
                                                               
     ./device/
        device.obj                    320     0         0      
@@ -335,12 +332,17 @@ MODULE SUMMARY
        Total:                        3157    1001      0      
                                                               
     /Applications/ti/ccs1260/ccs/tools/compiler/ti-cgt-c2000_22.6.1.LTS/lib/rts2800_fpu32_eabi.lib
+       fd_add28.asm.obj              156     0         0      
+       fd_div28.asm.obj              139     0         0      
        fs_div28.asm.obj              136     0         0      
        copy_decompress_lzss.c.obj    48      0         0      
        exit.c.obj                    41      0         6      
        autoinit.c.obj                43      0         0      
        memcpy.c.obj                  29      0         0      
+       fd_toul28.asm.obj             27      0         0      
        boot28.asm.obj                23      0         0      
+       ul_tofd28.asm.obj             22      0         0      
+       fd_sub28.asm.obj              14      0         0      
        _lock.c.obj                   9       0         4      
        copy_zero_init.c.obj          13      0         0      
        args_main.c.obj               12      0         0      
@@ -348,24 +350,24 @@ MODULE SUMMARY
        pre_init.c.obj                2       0         0      
        startup.c.obj                 1       0         0      
     +--+-----------------------------+-------+---------+---------+
-       Total:                        365     0         10     
+       Total:                        723     0         10     
                                                               
        Stack:                        0       0         512    
-       Linker Generated:             0       58        0      
+       Linker Generated:             0       53        0      
     +--+-----------------------------+-------+---------+---------+
-       Grand Total:                  10230   6758      1003   
+       Grand Total:                  10791   1385      1097   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 00081162 records: 2, size/record: 4, table size: 8
-	.data: load addr=00081130, load size=00000028 bytes, run addr=0000a000, run size=00000057 bytes, compression=lzss
-	.bss: load addr=0008115e, load size=00000004 bytes, run addr=0000a058, run size=00000194 bytes, compression=zero_init
+__TI_cinit_table @ 0008115e records: 2, size/record: 4, table size: 8
+	.data: load addr=00081130, load size=00000023 bytes, run addr=0000a000, run size=00000053 bytes, compression=lzss
+	.bss: load addr=0008115a, load size=00000004 bytes, run addr=0000a058, run size=000001f6 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00081158 records: 3, size/record: 2, table size: 6
+__TI_handler_table @ 00081154 records: 3, size/record: 2, table size: 6
 	index: 0, handler: __TI_zero_init
 	index: 1, handler: __TI_decompress_lzss
 	index: 2, handler: __TI_decompress_none
@@ -383,201 +385,191 @@ address     data page           name
 0000a040     281 (0000a040)     __TI_enable_exit_profile_output
 0000a042     281 (0000a040)     __TI_cleanup_ptr
 0000a044     281 (0000a040)     __TI_dtors_ptr
-0000a046     281 (0000a040)     pFrameDataArray
-0000a04a     281 (0000a040)     rxTileBase
-0000a04e     281 (0000a040)     txTileBase
-0000a052     281 (0000a040)     _lock
-0000a054     281 (0000a040)     _unlock
-0000a056     281 (0000a040)     cpuTimer0IntCount
+0000a046     281 (0000a040)     rxTileBase
+0000a04a     281 (0000a040)     txTileBase
+0000a04e     281 (0000a040)     _lock
+0000a050     281 (0000a040)     _unlock
+0000a052     281 (0000a040)     cpuTimer0IntCount
 0000a058     281 (0000a040)     clbRxRingBuff
 
 0000a158     285 (0000a140)     img_mono
 
-0000a1d1     287 (0000a1c0)     ringBuffHead
-0000a1d2     287 (0000a1c0)     ledXmtBuffer
-0000a1da     287 (0000a1c0)     vsyncDone
-0000a1dc     287 (0000a1c0)     sub_period_in_us
-0000a1de     287 (0000a1c0)     data
-0000a1e2     287 (0000a1c0)     ledRcvBuffer
-0000a1e6     287 (0000a1c0)     xmtBufPtr
-0000a1e8     287 (0000a1c0)     ringBuffTail
-0000a1e9     287 (0000a1c0)     xmtCount
-0000a1ea     287 (0000a1c0)     xmtDone
-0000a1eb     287 (0000a1c0)     xmtXferSize
+0000a1d1     287 (0000a1c0)     chip_status
 
-00084598    2116 (00084580)     frame_data1
+0000a233     288 (0000a200)     ringBuffHead
+0000a234     288 (0000a200)     ledXmtBuffer
+0000a23c     288 (0000a200)     vsyncDone
+0000a23e     288 (0000a200)     sub_period_in_us
 
-00084e98    213a (00084e80)     lookup_table_B
+0000a240     289 (0000a240)     data
+0000a244     289 (0000a240)     ledRcvBuffer
+0000a248     289 (0000a240)     xmtBufPtr
+0000a24a     289 (0000a240)     ringBuffTail
+0000a24b     289 (0000a240)     xmtCount
+0000a24c     289 (0000a240)     xmtDone
+0000a24d     289 (0000a240)     xmtXferSize
 
-00084feb    213f (00084fc0)     frame_size_x_dir
-00084fed    213f (00084fc0)     frame_size_y_dir
-00084fef    213f (00084fc0)     CASCADED_UNITS
-00084ff0    213f (00084fc0)     FRAME_PERIOD
+0008486b    2121 (00084840)     CASCADED_UNITS
 
-00085000    2140 (00085000)     frame_data2
-
-00085900    2164 (00085900)     lookup_table_G
-
-00085a00    2168 (00085a00)     lookup_table_R
+00084acd    212b (00084ac0)     FRAME_PERIOD
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
 page  address   name                             
 ----  -------   ----                             
-0     00083f58  Board_init                       
-0     000840e0  C$$EXIT                          
-0     00084fef  CASCADED_UNITS                   
-0     00082f50  CCSI1_RX_TILE_init               
-0     00082e5c  CCSI1_TX_TILE_init               
-0     00083349  CCSI2_RX_TILE_init               
-0     00083000  CCSI2_TX_TILE_init               
-0     00083c0a  CCSI_write                       
-0     00083f26  CCSI_write_sync                  
-0     00084193  CLB_SCLK_1_init                  
-0     000841b1  CLB_SCLK_2_init                  
-0     000841cf  CLB_SOUT_1_init                  
-0     000841ed  CLB_SOUT_2_init                  
-0     0008420b  CLB_SPICLK_1_init                
-0     00083a0b  CLB_configCounterLoadMatch       
-0     0008446e  CPUTimer_setEmulationMode        
-0     000831e3  Device_enableAllPeripherals      
-0     000839b1  Device_init                      
-0     000844a4  Device_initGPIO                  
-0     000832b6  EPWM_init                        
-0     0008439e  EPWM_setEmulationMode            
-0     00084ff0  FRAME_PERIOD                     
+0     0008410b  Board_init                       
+0     000842ae  C$$EXIT                          
+0     0008486b  CASCADED_UNITS                   
+0     00083434  CCSI1_RX_TILE_init               
+0     00083000  CCSI1_TX_TILE_init               
+0     0008355a  CCSI2_RX_TILE_init               
+0     000830f4  CCSI2_TX_TILE_init               
+0     0008413c  CCSI_read                        
+0     00083dde  CCSI_write                       
+0     000840d9  CCSI_write_sync                  
+0     00084361  CLB_SCLK_1_init                  
+0     0008437f  CLB_SCLK_2_init                  
+0     0008439d  CLB_SOUT_1_init                  
+0     000843bb  CLB_SOUT_2_init                  
+0     000843d9  CLB_SPICLK_1_init                
+0     00083c36  CLB_configCounterLoadMatch       
+0     00084685  CPUTimer_setEmulationMode        
+0     00082f24  Device_enableAllPeripherals      
+0     00083bdc  Device_init                      
+0     000846bb  Device_initGPIO                  
+0     000834c7  EPWM_init                        
+0     0008459f  EPWM_setEmulationMode            
+0     00084acd  FRAME_PERIOD                     
 0     00008000  Flash_initModule                 
-0     000837bd  GPIO_setAnalogMode               
-0     00083f89  GPIO_setDirectionMode            
-0     00083b6a  GPIO_setPadConfig                
-0     00083e4d  GPIO_setPinConfig                
-0     00083e84  GPIO_setQualificationMode        
-0     0008405d  INTERRUPT_init                   
-0     00083827  INT_CCSI1_RX_TILE_ISR            
-0     0008356c  INT_CCSI1_TX_TILE_ISR            
-0     0008388c  INT_CCSI2_RX_TILE_ISR            
-0     000835e9  INT_CCSI2_TX_TILE_ISR            
-0     000843b4  Interrupt_defaultHandler         
-0     00083bbc  Interrupt_disable                
-0     00083ebb  Interrupt_enable                 
-0     0008452d  Interrupt_illegalOperationHandler
-0     00083d27  Interrupt_initModule             
-0     00084265  Interrupt_initVectorTable        
-0     00084537  Interrupt_nmiHandler             
-0     00084151  LED_HAL_clbRxRingBuffRead        
-0     0008412d  LED_HAL_clbRxRingBuffWrite       
-0     00084587  LED_HAL_clbSyncTransferStart     
-0     000828c2  LED_HAL_clbTransferNonBlocking   
-0     00083956  LED_HAL_disableClbReceiver       
-0     00083a64  LED_HAL_enableClbReceiver        
-0     000830f4  LED_HAL_initClbLogic             
-0     0008454a  LED_HAL_ringBufferReset          
-0     00082c49  LED_HAL_setupInterrupts          
-0     00084329  LED_HAL_setupProfilingGPIO       
-0     00083ce4  LED_HAL_startLedClocks           
-0     00084481  LED_Set_Chip_Index               
-0     00084569  LED_Write_Black_ALL              
-0     00083ef2  LED_Write_RGB_Custom_ALL         
-0     00084283  LED_Write_Reg_Broadcast          
-0     0008374c  LED_sendSRAM                     
-0     000841ed  OUTPUTXBAR_init                  
-0     00083ddd  PinMux_init                      
+0     000839e8  GPIO_setAnalogMode               
+0     0008416d  GPIO_setDirectionMode            
+0     00083d3e  GPIO_setPadConfig                
+0     00084000  GPIO_setPinConfig                
+0     00084037  GPIO_setQualificationMode        
+0     0008422b  INTERRUPT_init                   
+0     00083a52  INT_CCSI1_RX_TILE_ISR            
+0     00083808  INT_CCSI1_TX_TILE_ISR            
+0     00083ab7  INT_CCSI2_RX_TILE_ISR            
+0     00083885  INT_CCSI2_TX_TILE_ISR            
+0     000845b5  Interrupt_defaultHandler         
+0     00083d90  Interrupt_disable                
+0     0008406e  Interrupt_enable                 
+0     00084752  Interrupt_illegalOperationHandler
+0     00083efb  Interrupt_initModule             
+0     00084433  Interrupt_initVectorTable        
+0     0008475c  Interrupt_nmiHandler             
+0     000847b3  LED_HAL_SclkInHz                 
+0     0008431f  LED_HAL_clbRxRingBuffRead        
+0     000842fb  LED_HAL_clbRxRingBuffWrite       
+0     000847b7  LED_HAL_clbSyncTransferStart     
+0     00082bc5  LED_HAL_clbTransferNonBlocking   
+0     00083b81  LED_HAL_disableClbReceiver       
+0     00083c8f  LED_HAL_enableClbReceiver        
+0     000831e8  LED_HAL_initClbLogic             
+0     0008476f  LED_HAL_ringBufferReset          
+0     000832d7  LED_HAL_setupInterrupts          
+0     00084514  LED_HAL_setupProfilingGPIO       
+0     00083eb8  LED_HAL_startLedClocks           
+0     00084698  LED_Set_Chip_Index               
+0     00084787  LED_Update_Chip_Status           
+0     00084795  LED_Write_Black_ALL              
+0     000840a5  LED_Write_RGB_Custom_ALL         
+0     00084451  LED_Write_Reg_Broadcast          
+0     00082ff7  LED_Write_White_ALL              
+0     000828c2  LED_lod_lsd_detection            
+0     000843bb  OUTPUTXBAR_init                  
+0     00083f75  PinMux_init                      
 0     0008112e  RamfuncsLoadEnd                  
 abs   0000012e  RamfuncsLoadSize                 
 0     00081000  RamfuncsLoadStart                
 0     0000812e  RamfuncsRunEnd                   
 abs   0000012e  RamfuncsRunSize                  
 0     00008000  RamfuncsRunStart                 
-0     00084493  SYNC_init                        
+0     000846aa  SYNC_init                        
 0     0000812a  SysCtl_delay                     
-0     000838f1  SysCtl_getClock                  
-0     0008430f  SysCtl_getLowSpeedClock          
-0     00082d5e  SysCtl_isPLLValid                
-0     00083c56  SysCtl_selectOscSource           
-0     00083d64  SysCtl_selectXTAL                
-0     00084173  SysCtl_selectXTALSingleEnded     
-0     00082b29  SysCtl_setClock                  
+0     00083b1c  SysCtl_getClock                  
+0     000844fa  SysCtl_getLowSpeedClock          
+0     00082e26  SysCtl_isPLLValid                
+0     00083e2a  SysCtl_selectOscSource           
+0     00083f38  SysCtl_selectXTAL                
+0     00084341  SysCtl_selectXTALSingleEnded     
+0     00082d06  SysCtl_setClock                  
 0     0000a000  TILE1HLCInstr                    
 0     0000a020  TILE2HLCInstr                    
-0     00084000  XBAR_setCLBMuxConfig             
-0     00083e15  XBAR_setOutputMuxConfig          
-0     00081162  __TI_CINIT_Base                  
-0     0008116a  __TI_CINIT_Limit                 
-0     0008116a  __TI_CINIT_Warm                  
-0     00081158  __TI_Handler_Table_Base          
-0     0008115e  __TI_Handler_Table_Limit         
+0     000841ce  XBAR_setCLBMuxConfig             
+0     00083fad  XBAR_setOutputMuxConfig          
+0     0008115e  __TI_CINIT_Base                  
+0     00081166  __TI_CINIT_Limit                 
+0     00081166  __TI_CINIT_Warm                  
+0     00081154  __TI_Handler_Table_Base          
+0     0008115a  __TI_Handler_Table_Limit         
 0     00000600  __TI_STACK_END                   
 abs   00000200  __TI_STACK_SIZE                  
-0     000840b5  __TI_auto_init_nobinit_nopinit   
+0     00084283  __TI_auto_init_nobinit_nopinit   
 0     0000a042  __TI_cleanup_ptr                 
-0     00083fba  __TI_decompress_lzss             
-0     00084552  __TI_decompress_none             
+0     0008419e  __TI_decompress_lzss             
+0     00084777  __TI_decompress_none             
 0     0000a044  __TI_dtors_ptr                   
 0     0000a040  __TI_enable_exit_profile_output  
 abs   ffffffff  __TI_pprof_out_hndl              
 abs   ffffffff  __TI_prof_data_size              
 abs   ffffffff  __TI_prof_data_start             
-0     000844fc  __TI_zero_init_nomemset          
-0     00083465  __c28xabi_divf                   
+0     00084721  __TI_zero_init_nomemset          
+0     00083398  __c28xabi_addd                   
+0     00083676  __c28xabi_divd                   
+0     00083701  __c28xabi_divf                   
+0     000844df  __c28xabi_dtoul                  
+0     000846f9  __c28xabi_subd                   
+0     000845cb  __c28xabi_ultod                  
 n/a   UNDEFED   __c_args__                       
-0     00084593  __error__                        
+0     000847c3  __error__                        
 0     00000400  __stack                          
-0     00084516  _args_main                       
-0     00084387  _c_int00                         
-0     0000a052  _lock                            
-0     00084549  _nop                             
-0     00084545  _register_lock                   
-0     00084541  _register_unlock                 
-0     00083abd  _system_post_cinit               
-0     00084596  _system_pre_init                 
-0     0000a054  _unlock                          
-0     000840e0  abort                            
-0     00083abe  animateFrame                     
+0     0008473b  _args_main                       
+0     00084572  _c_int00                         
+0     0000a04e  _lock                            
+0     0008476e  _nop                             
+0     0008476a  _register_lock                   
+0     00084766  _register_unlock                 
+0     000847c8  _system_post_cinit               
+0     000847c6  _system_pre_init                 
+0     0000a050  _unlock                          
+0     000842ae  abort                            
+0     0000a1d1  chip_status                      
 0     0000a058  clbRxRingBuff                    
 0     00080000  code_start                       
-0     000833d7  configCPUTimer                   
-0     00084370  cpuTimer0ISR                     
-0     0000a056  cpuTimer0IntCount                
-0     0000a1de  data                             
-0     000840e2  exit                             
-0     00083da1  fadeFrame                        
-0     00084598  frame_data1                      
-0     00085000  frame_data2                      
-0     00084feb  frame_size_x_dir                 
-0     00084fed  frame_size_y_dir                 
+0     000835e8  configCPUTimer                   
+0     0008455b  cpuTimer0ISR                     
+0     0000a052  cpuTimer0IntCount                
+0     0000a240  data                             
+0     000842b0  exit                             
 0     0000a158  img_mono                         
-0     000842a1  initCPUTimer                     
+0     0008448c  initCPUTimer                     
 0     00082000  initTILE1                        
 0     00082461  initTILE2                        
-0     0000a1e2  ledRcvBuffer                     
-0     0000a1d2  ledXmtBuffer                     
-0     00084e98  lookup_table_B                   
-0     00085900  lookup_table_G                   
-0     00085a00  lookup_table_R                   
-0     00082c4a  main                             
-0     00082fe3  memcpy                           
-0     0008456f  myCLBINPUTXBARINPUT0_init        
-0     00084575  myCLBINPUTXBARINPUT1_init        
-0     0008457b  myCLBINPUTXBARINPUT2_init        
-0     00084581  myCLBINPUTXBARINPUT3_init        
-0     0000a046  pFrameDataArray                  
-0     00082a03  prepareFrame                     
-0     00083b14  processReadData                  
-0     0000a1d1  ringBuffHead                     
-0     0000a1e8  ringBuffTail                     
-0     0000a04a  rxTileBase                       
-0     0008458b  sendSYNC                         
-0     000842bd  sendSYNCinternal                 
-0     0008458f  sendSYNCnoWait                   
-0     00084509  setData                          
-0     0000a1dc  sub_period_in_us                 
-0     0000a04e  txTileBase                       
-0     0000a1da  vsyncDone                        
-0     0000a1e6  xmtBufPtr                        
-0     0000a1e9  xmtCount                         
-0     0000a1ea  xmtDone                          
-0     0000a1eb  xmtXferSize                      
+0     0000a244  ledRcvBuffer                     
+0     0000a234  ledXmtBuffer                     
+0     000832d8  main                             
+0     0008446f  memcpy                           
+0     0008479b  myCLBINPUTXBARINPUT0_init        
+0     000847a1  myCLBINPUTXBARINPUT1_init        
+0     000847a7  myCLBINPUTXBARINPUT2_init        
+0     000847ad  myCLBINPUTXBARINPUT3_init        
+0     00083ce8  processReadData                  
+0     0000a233  ringBuffHead                     
+0     0000a24a  ringBuffTail                     
+0     0000a046  rxTileBase                       
+0     000847bb  sendSYNC                         
+0     000844a8  sendSYNCinternal                 
+0     000847bf  sendSYNCnoWait                   
+0     0008472e  setData                          
+0     0000a23e  sub_period_in_us                 
+0     0000a04a  txTileBase                       
+0     0000a23c  vsyncDone                        
+0     0000a248  xmtBufPtr                        
+0     0000a24b  xmtCount                         
+0     0000a24c  xmtDone                          
+0     0000a24d  xmtXferSize                      
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -595,141 +587,140 @@ page  address   name
 0     0000a040  __TI_enable_exit_profile_output  
 0     0000a042  __TI_cleanup_ptr                 
 0     0000a044  __TI_dtors_ptr                   
-0     0000a046  pFrameDataArray                  
-0     0000a04a  rxTileBase                       
-0     0000a04e  txTileBase                       
-0     0000a052  _lock                            
-0     0000a054  _unlock                          
-0     0000a056  cpuTimer0IntCount                
+0     0000a046  rxTileBase                       
+0     0000a04a  txTileBase                       
+0     0000a04e  _lock                            
+0     0000a050  _unlock                          
+0     0000a052  cpuTimer0IntCount                
 0     0000a058  clbRxRingBuff                    
 0     0000a158  img_mono                         
-0     0000a1d1  ringBuffHead                     
-0     0000a1d2  ledXmtBuffer                     
-0     0000a1da  vsyncDone                        
-0     0000a1dc  sub_period_in_us                 
-0     0000a1de  data                             
-0     0000a1e2  ledRcvBuffer                     
-0     0000a1e6  xmtBufPtr                        
-0     0000a1e8  ringBuffTail                     
-0     0000a1e9  xmtCount                         
-0     0000a1ea  xmtDone                          
-0     0000a1eb  xmtXferSize                      
+0     0000a1d1  chip_status                      
+0     0000a233  ringBuffHead                     
+0     0000a234  ledXmtBuffer                     
+0     0000a23c  vsyncDone                        
+0     0000a23e  sub_period_in_us                 
+0     0000a240  data                             
+0     0000a244  ledRcvBuffer                     
+0     0000a248  xmtBufPtr                        
+0     0000a24a  ringBuffTail                     
+0     0000a24b  xmtCount                         
+0     0000a24c  xmtDone                          
+0     0000a24d  xmtXferSize                      
 0     00080000  code_start                       
 0     00081000  RamfuncsLoadStart                
 0     0008112e  RamfuncsLoadEnd                  
-0     00081158  __TI_Handler_Table_Base          
-0     0008115e  __TI_Handler_Table_Limit         
-0     00081162  __TI_CINIT_Base                  
-0     0008116a  __TI_CINIT_Limit                 
-0     0008116a  __TI_CINIT_Warm                  
+0     00081154  __TI_Handler_Table_Base          
+0     0008115a  __TI_Handler_Table_Limit         
+0     0008115e  __TI_CINIT_Base                  
+0     00081166  __TI_CINIT_Limit                 
+0     00081166  __TI_CINIT_Warm                  
 0     00082000  initTILE1                        
 0     00082461  initTILE2                        
-0     000828c2  LED_HAL_clbTransferNonBlocking   
-0     00082a03  prepareFrame                     
-0     00082b29  SysCtl_setClock                  
-0     00082c49  LED_HAL_setupInterrupts          
-0     00082c4a  main                             
-0     00082d5e  SysCtl_isPLLValid                
-0     00082e5c  CCSI1_TX_TILE_init               
-0     00082f50  CCSI1_RX_TILE_init               
-0     00082fe3  memcpy                           
-0     00083000  CCSI2_TX_TILE_init               
-0     000830f4  LED_HAL_initClbLogic             
-0     000831e3  Device_enableAllPeripherals      
-0     000832b6  EPWM_init                        
-0     00083349  CCSI2_RX_TILE_init               
-0     000833d7  configCPUTimer                   
-0     00083465  __c28xabi_divf                   
-0     0008356c  INT_CCSI1_TX_TILE_ISR            
-0     000835e9  INT_CCSI2_TX_TILE_ISR            
-0     0008374c  LED_sendSRAM                     
-0     000837bd  GPIO_setAnalogMode               
-0     00083827  INT_CCSI1_RX_TILE_ISR            
-0     0008388c  INT_CCSI2_RX_TILE_ISR            
-0     000838f1  SysCtl_getClock                  
-0     00083956  LED_HAL_disableClbReceiver       
-0     000839b1  Device_init                      
-0     00083a0b  CLB_configCounterLoadMatch       
-0     00083a64  LED_HAL_enableClbReceiver        
-0     00083abd  _system_post_cinit               
-0     00083abe  animateFrame                     
-0     00083b14  processReadData                  
-0     00083b6a  GPIO_setPadConfig                
-0     00083bbc  Interrupt_disable                
-0     00083c0a  CCSI_write                       
-0     00083c56  SysCtl_selectOscSource           
-0     00083ce4  LED_HAL_startLedClocks           
-0     00083d27  Interrupt_initModule             
-0     00083d64  SysCtl_selectXTAL                
-0     00083da1  fadeFrame                        
-0     00083ddd  PinMux_init                      
-0     00083e15  XBAR_setOutputMuxConfig          
-0     00083e4d  GPIO_setPinConfig                
-0     00083e84  GPIO_setQualificationMode        
-0     00083ebb  Interrupt_enable                 
-0     00083ef2  LED_Write_RGB_Custom_ALL         
-0     00083f26  CCSI_write_sync                  
-0     00083f58  Board_init                       
-0     00083f89  GPIO_setDirectionMode            
-0     00083fba  __TI_decompress_lzss             
-0     00084000  XBAR_setCLBMuxConfig             
-0     0008405d  INTERRUPT_init                   
-0     000840b5  __TI_auto_init_nobinit_nopinit   
-0     000840e0  C$$EXIT                          
-0     000840e0  abort                            
-0     000840e2  exit                             
-0     0008412d  LED_HAL_clbRxRingBuffWrite       
-0     00084151  LED_HAL_clbRxRingBuffRead        
-0     00084173  SysCtl_selectXTALSingleEnded     
-0     00084193  CLB_SCLK_1_init                  
-0     000841b1  CLB_SCLK_2_init                  
-0     000841cf  CLB_SOUT_1_init                  
-0     000841ed  CLB_SOUT_2_init                  
-0     000841ed  OUTPUTXBAR_init                  
-0     0008420b  CLB_SPICLK_1_init                
-0     00084265  Interrupt_initVectorTable        
-0     00084283  LED_Write_Reg_Broadcast          
-0     000842a1  initCPUTimer                     
-0     000842bd  sendSYNCinternal                 
-0     0008430f  SysCtl_getLowSpeedClock          
-0     00084329  LED_HAL_setupProfilingGPIO       
-0     00084370  cpuTimer0ISR                     
-0     00084387  _c_int00                         
-0     0008439e  EPWM_setEmulationMode            
-0     000843b4  Interrupt_defaultHandler         
-0     0008446e  CPUTimer_setEmulationMode        
-0     00084481  LED_Set_Chip_Index               
-0     00084493  SYNC_init                        
-0     000844a4  Device_initGPIO                  
-0     000844fc  __TI_zero_init_nomemset          
-0     00084509  setData                          
-0     00084516  _args_main                       
-0     0008452d  Interrupt_illegalOperationHandler
-0     00084537  Interrupt_nmiHandler             
-0     00084541  _register_unlock                 
-0     00084545  _register_lock                   
-0     00084549  _nop                             
-0     0008454a  LED_HAL_ringBufferReset          
-0     00084552  __TI_decompress_none             
-0     00084569  LED_Write_Black_ALL              
-0     0008456f  myCLBINPUTXBARINPUT0_init        
-0     00084575  myCLBINPUTXBARINPUT1_init        
-0     0008457b  myCLBINPUTXBARINPUT2_init        
-0     00084581  myCLBINPUTXBARINPUT3_init        
-0     00084587  LED_HAL_clbSyncTransferStart     
-0     0008458b  sendSYNC                         
-0     0008458f  sendSYNCnoWait                   
-0     00084593  __error__                        
-0     00084596  _system_pre_init                 
-0     00084598  frame_data1                      
-0     00084e98  lookup_table_B                   
-0     00084feb  frame_size_x_dir                 
-0     00084fed  frame_size_y_dir                 
-0     00084fef  CASCADED_UNITS                   
-0     00084ff0  FRAME_PERIOD                     
-0     00085000  frame_data2                      
-0     00085900  lookup_table_G                   
-0     00085a00  lookup_table_R                   
+0     000828c2  LED_lod_lsd_detection            
+0     00082bc5  LED_HAL_clbTransferNonBlocking   
+0     00082d06  SysCtl_setClock                  
+0     00082e26  SysCtl_isPLLValid                
+0     00082f24  Device_enableAllPeripherals      
+0     00082ff7  LED_Write_White_ALL              
+0     00083000  CCSI1_TX_TILE_init               
+0     000830f4  CCSI2_TX_TILE_init               
+0     000831e8  LED_HAL_initClbLogic             
+0     000832d7  LED_HAL_setupInterrupts          
+0     000832d8  main                             
+0     00083398  __c28xabi_addd                   
+0     00083434  CCSI1_RX_TILE_init               
+0     000834c7  EPWM_init                        
+0     0008355a  CCSI2_RX_TILE_init               
+0     000835e8  configCPUTimer                   
+0     00083676  __c28xabi_divd                   
+0     00083701  __c28xabi_divf                   
+0     00083808  INT_CCSI1_TX_TILE_ISR            
+0     00083885  INT_CCSI2_TX_TILE_ISR            
+0     000839e8  GPIO_setAnalogMode               
+0     00083a52  INT_CCSI1_RX_TILE_ISR            
+0     00083ab7  INT_CCSI2_RX_TILE_ISR            
+0     00083b1c  SysCtl_getClock                  
+0     00083b81  LED_HAL_disableClbReceiver       
+0     00083bdc  Device_init                      
+0     00083c36  CLB_configCounterLoadMatch       
+0     00083c8f  LED_HAL_enableClbReceiver        
+0     00083ce8  processReadData                  
+0     00083d3e  GPIO_setPadConfig                
+0     00083d90  Interrupt_disable                
+0     00083dde  CCSI_write                       
+0     00083e2a  SysCtl_selectOscSource           
+0     00083eb8  LED_HAL_startLedClocks           
+0     00083efb  Interrupt_initModule             
+0     00083f38  SysCtl_selectXTAL                
+0     00083f75  PinMux_init                      
+0     00083fad  XBAR_setOutputMuxConfig          
+0     00084000  GPIO_setPinConfig                
+0     00084037  GPIO_setQualificationMode        
+0     0008406e  Interrupt_enable                 
+0     000840a5  LED_Write_RGB_Custom_ALL         
+0     000840d9  CCSI_write_sync                  
+0     0008410b  Board_init                       
+0     0008413c  CCSI_read                        
+0     0008416d  GPIO_setDirectionMode            
+0     0008419e  __TI_decompress_lzss             
+0     000841ce  XBAR_setCLBMuxConfig             
+0     0008422b  INTERRUPT_init                   
+0     00084283  __TI_auto_init_nobinit_nopinit   
+0     000842ae  C$$EXIT                          
+0     000842ae  abort                            
+0     000842b0  exit                             
+0     000842fb  LED_HAL_clbRxRingBuffWrite       
+0     0008431f  LED_HAL_clbRxRingBuffRead        
+0     00084341  SysCtl_selectXTALSingleEnded     
+0     00084361  CLB_SCLK_1_init                  
+0     0008437f  CLB_SCLK_2_init                  
+0     0008439d  CLB_SOUT_1_init                  
+0     000843bb  CLB_SOUT_2_init                  
+0     000843bb  OUTPUTXBAR_init                  
+0     000843d9  CLB_SPICLK_1_init                
+0     00084433  Interrupt_initVectorTable        
+0     00084451  LED_Write_Reg_Broadcast          
+0     0008446f  memcpy                           
+0     0008448c  initCPUTimer                     
+0     000844a8  sendSYNCinternal                 
+0     000844df  __c28xabi_dtoul                  
+0     000844fa  SysCtl_getLowSpeedClock          
+0     00084514  LED_HAL_setupProfilingGPIO       
+0     0008455b  cpuTimer0ISR                     
+0     00084572  _c_int00                         
+0     0008459f  EPWM_setEmulationMode            
+0     000845b5  Interrupt_defaultHandler         
+0     000845cb  __c28xabi_ultod                  
+0     00084685  CPUTimer_setEmulationMode        
+0     00084698  LED_Set_Chip_Index               
+0     000846aa  SYNC_init                        
+0     000846bb  Device_initGPIO                  
+0     000846f9  __c28xabi_subd                   
+0     00084721  __TI_zero_init_nomemset          
+0     0008472e  setData                          
+0     0008473b  _args_main                       
+0     00084752  Interrupt_illegalOperationHandler
+0     0008475c  Interrupt_nmiHandler             
+0     00084766  _register_unlock                 
+0     0008476a  _register_lock                   
+0     0008476e  _nop                             
+0     0008476f  LED_HAL_ringBufferReset          
+0     00084777  __TI_decompress_none             
+0     00084787  LED_Update_Chip_Status           
+0     00084795  LED_Write_Black_ALL              
+0     0008479b  myCLBINPUTXBARINPUT0_init        
+0     000847a1  myCLBINPUTXBARINPUT1_init        
+0     000847a7  myCLBINPUTXBARINPUT2_init        
+0     000847ad  myCLBINPUTXBARINPUT3_init        
+0     000847b3  LED_HAL_SclkInHz                 
+0     000847b7  LED_HAL_clbSyncTransferStart     
+0     000847bb  sendSYNC                         
+0     000847bf  sendSYNCnoWait                   
+0     000847c3  __error__                        
+0     000847c6  _system_pre_init                 
+0     000847c8  _system_post_cinit               
+0     0008486b  CASCADED_UNITS                   
+0     00084acd  FRAME_PERIOD                     
 abs   0000012e  RamfuncsLoadSize                 
 abs   0000012e  RamfuncsRunSize                  
 abs   00000200  __TI_STACK_SIZE                  
@@ -738,4 +729,4 @@ abs   ffffffff  __TI_prof_data_size
 abs   ffffffff  __TI_prof_data_start             
 n/a   UNDEFED   __c_args__                       
 
-[153 symbols]
+[152 symbols]

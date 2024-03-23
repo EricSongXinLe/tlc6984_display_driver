@@ -571,6 +571,7 @@ void main(void)
         while(1) {
             // Make the screen all white
             LED_Write_White_ALL();
+            //LED_Write_Black_ALL();
 
             // Send VSYNC
             sendSYNC();
