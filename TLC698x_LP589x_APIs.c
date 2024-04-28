@@ -111,6 +111,10 @@ void LED_setSubPeriodInUS(void)
  * bias -> Bias in the date send buffer.
  *
  */
+
+
+
+
 void setData(uint16_t *data, uint16_t high, uint16_t mid, uint16_t low, uint16_t bias)
 {
     data[0 + bias] = high;
@@ -193,8 +197,8 @@ void LED_Write_RGB_Custom_ALL(uint16_t r_value, uint16_t g_value, uint16_t b_val
     uint16_t bus_idx = 0;
     uint16_t chip_idx = 0;
 
-    uint16_t lineNum = 0; //turn on this line only
-    uint16_t channelNum = 0;
+    //uint16_t lineNum = 0; //turn on this line only
+    //uint16_t channelNum = 0;
 
     for(line_idx = 0; line_idx < TOTAL_SCAN_LINES; line_idx++){
         for(ch_idx = 0 ; ch_idx < RGB_CHANNEL_CNT ; ch_idx++){

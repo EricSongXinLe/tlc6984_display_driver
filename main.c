@@ -458,6 +458,10 @@ void main(void)
     uint16_t fc0_0 = _FC0_0;
     uint16_t fc0_1 = _FC0_1;
 
+
+    /*  USER-DEFINED VARS*/
+    uint16_t frame1Cnt = 0;
+    uint16_t frame2Cnt = 0;
     // Initialize device clock and peripherals
     Device_init();
 
@@ -569,15 +573,33 @@ void main(void)
         //
 
         while(1) {
+            /*
+             IMPORTANT DEBUGGING GUIDANCE: If the Display won't turn on after the code is downloaded, Plug and unplug the organge cable that connects the 2 pads.
+             */
             // Make the screen all white
-            LED_Write_White_ALL();
-            //LED_Write_Black_ALL();
+            /* TEST1: 10Frames of White, 10 Frames of black*/
+            for(frame1Cnt = 0; frame1Cnt<10; frame1Cnt++){
+                LED_Write_White_ALL();
+                //LED_Write_Black_ALL();
 
-            // Send VSYNC
-            sendSYNC();
+                // Send VSYNC
+                sendSYNC();
 
-            // Update LOD and LSD information
-            LED_Update_Chip_Status();
+                // Update LOD and LSD information
+                LED_Update_Chip_Status();
+            }
+
+            for(frame2Cnt = 0; frame2Cnt<10; frame2Cnt++){
+                LED_Write_Black_ALL();
+                //LED_Write_Black_ALL();
+
+                // Send VSYNC
+                sendSYNC();
+
+                // Update LOD and LSD information
+                LED_Update_Chip_Status();
+            }
+
         }
     }
     else {

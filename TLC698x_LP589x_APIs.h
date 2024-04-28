@@ -36,6 +36,7 @@ void LED_Write_Red_Custom_ALL(uint16_t brt_value);
 void LED_Write_Green_Custom_ALL(uint16_t brt_value);
 void LED_Write_Blue_Custom_ALL(uint16_t brt_value);
 
+
 void LED_Write_RGB_Diagonal_Custom_ALL(uint16_t r_value, uint16_t g_value, uint16_t b_value);
 void LED_Write_Red_Diagonal_ALL(void);
 void LED_Write_Green_Diagonal_ALL(void);
