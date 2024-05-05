@@ -21,6 +21,9 @@
 
 #define MONOCHROMATIC          TRUE
 
+#define SIMPLE_TEST            FALSE
+
+
 #if LP589X
     // The LP589X EVM is independent mode
     #define TOTAL_SCAN_LINES       16

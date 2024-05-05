@@ -12,7 +12,7 @@
 #if LP589X
     const uint16_t FRAME_PERIOD = 16667;      // 16.67ms = 60 Hz frames-per-second
 #else
-    const uint16_t FRAME_PERIOD = 40000;      // 40ms = 25 Hz frames-per-second
+    const uint16_t FRAME_PERIOD = 65535;      // 40ms = 25 Hz frames-per-second
 #endif
 
 struct chipStatus chip_status[CCSI_BUS_NUM][MAX_CASCADED_UNITS];

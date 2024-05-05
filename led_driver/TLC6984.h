@@ -180,7 +180,7 @@ typedef struct outChannel {
 } outChannel;
 
 #define RGB_CHANNEL_CNT 11 //One LED won't turn off if use 11.
-#define CHANNEL_CNT 48
+#define CHANNEL_CNT 33
 #define TLC698X 1
 #define TLC6984 1
 
