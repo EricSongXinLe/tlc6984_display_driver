@@ -179,7 +179,7 @@ typedef struct outChannel {
     volatile OUTBx OUTB;
 } outChannel;
 
-#define RGB_CHANNEL_CNT 12 //One LED won't turn off if use 11.
+#define RGB_CHANNEL_CNT 11 //One LED won't turn off if use 11.
 #define CHANNEL_CNT 48
 #define TLC698X 1
 #define TLC6984 1

@@ -438,6 +438,7 @@ void prepareFrame(uint16_t animation_cnt, uint16_t frame, uint16_t bus, uint16_t
 void main(void)
 {
     volatile uint16_t errorDetected;
+    uint16_t simple_test_iteration = 0;
     uint16_t i;
     uint16_t y_dir = 0; //Loop index
     uint16_t x_dir = 0;
@@ -571,6 +572,48 @@ void main(void)
         //
         // Execute your simple test here
         //
+        for(frame1Cnt = 0; frame1Cnt<10; frame1Cnt++){
+            LED_Write_White_ALL();
+            //LED_Write_Black_ALL();
+
+            // Send VSYNC
+            sendSYNC();
+
+            // Update LOD and LSD information
+            LED_Update_Chip_Status();
+        }
+       frame1Cnt = 0;
+        for(simple_test_iteration=0;simple_test_iteration<5;simple_test_iteration++){
+            for(x_dir = 0; x_dir < 11; x_dir++){
+                for(y_dir = 0; y_dir < 11; y_dir++){
+                    for(frame1Cnt = 0; frame1Cnt<5; frame1Cnt++){
+                        LED_Write_Pos(x_dir,y_dir);
+                        //LED_Write_Black_ALL();
+
+                        // Send VSYNC
+                        sendSYNC();
+
+                        // Update LOD and LSD information
+                        LED_Update_Chip_Status();
+                    }
+                    for(frame1Cnt = 0; frame1Cnt<5; frame1Cnt++){
+                        //LED_Write_Pos(1,1);
+                        LED_Write_Black_ALL();
+
+                        // Send VSYNC
+                        sendSYNC();
+
+                        // Update LOD and LSD information
+                        LED_Update_Chip_Status();
+                    }
+                    frame1Cnt = 0;
+                }
+            }
+        }
+        x_dir = 0;
+        y_dir = 0;
+
+        frame1Cnt = 0;
 
         while(1) {
             /*
@@ -579,7 +622,7 @@ void main(void)
             // Make the screen all white
             /* TEST1: 10Frames of White, 10 Frames of black*/
             for(frame1Cnt = 0; frame1Cnt<10; frame1Cnt++){
-                LED_Write_White_ALL();
+                LED_Write_Letter();
                 //LED_Write_Black_ALL();
 
                 // Send VSYNC

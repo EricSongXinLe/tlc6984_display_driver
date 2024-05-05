@@ -27,6 +27,11 @@ void LED_Set_Chip_Index(unsigned int checkResponse, unsigned int bus);
 void LED_sendSRAM(uint16_t scan_lines);
 
 void LED_Write_RGB_Custom_ALL(uint16_t r_value, uint16_t g_value, uint16_t b_value);
+
+void LED_Write_Letter(void);
+
+void LED_Write_Pos(uint16_t x, uint16_t y);
+
 void LED_Write_Black_ALL(void);
 void LED_Write_White_ALL(void);
 void LED_Write_Red_ALL(void);
