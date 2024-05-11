@@ -435,9 +435,8 @@ void prepareFrame(uint16_t animation_cnt, uint16_t frame, uint16_t bus, uint16_t
 // Main
 //
 void main(void)
-{
+ {
     volatile uint16_t errorDetected;
-    uint16_t simple_test_iteration = 0;
     uint16_t i;
     uint16_t y_dir = 0; //Loop index
     uint16_t x_dir = 0;
@@ -573,7 +572,7 @@ void main(void)
         //
         if(SIMPLE_TEST == TRUE){
             while(1){
-                for(frame1Cnt = 0; frame1Cnt<10; frame1Cnt++){
+                for(frame1Cnt = 0; frame1Cnt<15; frame1Cnt++){
                     LED_Write_White_ALL();
                     //LED_Write_Black_ALL();
 
@@ -607,8 +606,8 @@ void main(void)
 
 
                 for(x_dir = 0; x_dir < 11; x_dir++){
-                    for(y_dir = 3; y_dir < 4; y_dir++){
-                        for(frame1Cnt = 0; frame1Cnt<2; frame1Cnt++){
+                    for(y_dir = 0; y_dir < 11; y_dir++){
+                        for(frame1Cnt = 0; frame1Cnt<3; frame1Cnt++){
                             LED_Write_Pos(x_dir,y_dir);
                             //LED_Write_Black_ALL();
 
@@ -631,14 +630,11 @@ void main(void)
                         }*/
                     }
                 }
-
             }
         }
 
 
 
-        x_dir = 0;
-        y_dir = 0;
 
 
         while(1) {
@@ -648,7 +644,17 @@ void main(void)
             // Make the screen all white
             /* TEST1: 10Frames of White, 10 Frames of black*/
             for(frame1Cnt = 0; frame1Cnt<10; frame1Cnt++){
-                LED_Write_White_ALL();
+                            LED_Write_White_ALL();
+                            //LED_Write_Black_ALL();
+
+                            // Send VSYNC
+                            sendSYNC();
+
+                            // Update LOD and LSD information
+                            LED_Update_Chip_Status();
+                        }
+            for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
+                LED_Write_Letter();
                 //LED_Write_Black_ALL();
 
                 // Send VSYNC

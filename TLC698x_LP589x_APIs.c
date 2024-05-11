@@ -198,17 +198,20 @@ void LED_Write_Pos(uint16_t x, uint16_t y){
                     else{
                         val = 0x0;
                     }
-
-                    setData(&data[bus_idx][0],
+                    if(ch_idx >= 11){
+                        val = 0x0;
+                    }
+                    setData(&data[0][0],
                             val,   // B
                             val,   // G
                             val,   // R
-                            (chip_idx << 1) + chip_idx);
+                            (0 << 1) + 0);
                 }
-                CCSI_write(W_SRAM, &data[bus_idx][0], (CASCADED_UNITS[bus_idx] << 1) + CASCADED_UNITS[bus_idx], FALSE, bus_idx);
+                CCSI_write(W_SRAM, &data[0][0], (CASCADED_UNITS[0] << 1) + CASCADED_UNITS[0], FALSE, 0);
                 //DEVICE_DELAY_US(10000); //0.01s
             }
         }
+
     }
 }
 
@@ -218,7 +221,7 @@ void LED_Write_Letter(void){
     uint16_t bus_idx = 0;
     uint16_t chip_idx = 0;
     uint16_t val = 0xFFFF;
-    uint16_t letter_U[11][11] = {
+    unsigned char letter_U[11][11] = {
                                      {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
                                      {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
                                      {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
@@ -231,7 +234,7 @@ void LED_Write_Letter(void){
                                      {1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
                                      {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}
                                  };
-    uint16_t letter_A[11][11] = {
+    unsigned char letter_A[11][11] = {
                                  {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
                                  {0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0},
                                  {0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0},
@@ -244,6 +247,46 @@ void LED_Write_Letter(void){
                                  {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                                  {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
                              };
+    unsigned char letter_o[11][11] = {
+        {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
+        {0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+        {0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0},
+        {0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    };
+
+    unsigned char number_one[11][11] = {
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                   {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                               };
+    unsigned char diagonal_line[11][11] = {
+                                           {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                           {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                           {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+                                           {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+                                           {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
+                                           {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                           {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+                                           {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                                           {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+                                           {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0},
+                                           {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}
+                                       };
 
 
 
@@ -251,11 +294,16 @@ void LED_Write_Letter(void){
         for(ch_idx = 0 ; ch_idx < RGB_CHANNEL_CNT ; ch_idx++){
             for(bus_idx = 0 ; bus_idx < CCSI_BUS_NUM ; bus_idx++){
                 for(chip_idx = 0; chip_idx < CASCADED_UNITS[bus_idx]; chip_idx++){
-                    if(letter_A[line_idx][ch_idx] == 0){
-                        val = 0x0;
+                    if(ch_idx < 11){
+                        if(diagonal_line[line_idx][ch_idx] != 0){
+                            val = 0xFFFF;
+                        }
+                        else{
+                            val = 0x0;
+                        }
                     }
                     else{
-                        val = 0xFFFF;
+                        val = 0x0;
                     }
 
                     setData(&data[bus_idx][0],
