@@ -257,8 +257,6 @@ void prepareFrame(uint16_t animation_cnt, uint16_t frame, uint16_t bus, uint16_t
     uint16_t frame_arr_idx = frame / MAX_FRAMES_ARR;
     uint16_t frame_idx = frame - (frame_arr_idx * MAX_FRAMES_ARR);
     uint16_t tempFlashDataR = 0;
-    uint16_t tempFlashDataG = 0;
-    uint16_t tempFlashDataB = 0;
     uint16_t x_idx_odd = 0;
     int move_horizontal = 0;
     int move_vertical = 0;
@@ -572,7 +570,7 @@ void main(void)
         //
         if(SIMPLE_TEST == TRUE){
             while(1){
-                for(frame1Cnt = 0; frame1Cnt<15; frame1Cnt++){
+                for(frame1Cnt = 0; frame1Cnt<30; frame1Cnt++){
                     LED_Write_White_ALL();
                     //LED_Write_Black_ALL();
 
@@ -607,12 +605,14 @@ void main(void)
 
                 for(x_dir = 0; x_dir < 11; x_dir++){
                     for(y_dir = 0; y_dir < 11; y_dir++){
-                        for(frame1Cnt = 0; frame1Cnt<3; frame1Cnt++){
+                        for(frame1Cnt = 0; frame1Cnt<6; frame1Cnt++){
                             LED_Write_Pos(x_dir,y_dir);
                             //LED_Write_Black_ALL();
 
                             // Send VSYNC
                             sendSYNC();
+
+
 
                             // Update LOD and LSD information
                             LED_Update_Chip_Status();

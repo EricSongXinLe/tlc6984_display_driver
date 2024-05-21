@@ -19,8 +19,8 @@
     #define SCREEN_SIZE_Y 16
 #else
     // TLC6983/TLC6984 EVM has screen size of 32x32 RGB
-    #define SCREEN_SIZE_X 11 //32
-    #define SCREEN_SIZE_Y 11 //32
+    #define SCREEN_SIZE_X 16 //32
+    #define SCREEN_SIZE_Y 16 //32
 #endif
 #define FRAME_SIZE_X 48
 #define FRAME_SIZE_Y 32
