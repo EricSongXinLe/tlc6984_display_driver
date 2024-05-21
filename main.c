@@ -566,6 +566,62 @@ void main(void)
     LED_Write_Black_ALL();
     sendSYNCnoWait();
 
+
+
+    const unsigned char letter_U[11][11] = {
+                                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                         {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                         {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0},
+                                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                                     };
+
+    const unsigned char letter_C[11][11] = {
+                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0},
+                                             {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0},
+                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                                         };
+    const unsigned char letter_L[11][11] = {
+                                                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0},
+                                                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                                             };
+    const unsigned char letter_A[11][11] = {
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0},
+                                                     {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                                     {0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0},
+                                                     {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                                     {0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                                                 };
+
     if(ANIMATION == FALSE) {
         //
         // Execute your simple test here
@@ -654,7 +710,7 @@ void main(void)
                             LED_Update_Chip_Status();
                         }
             for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
-                LED_Write_Letter();
+                LED_Write_Letter(letter_U);
                 //LED_Write_Black_ALL();
 
                 // Send VSYNC
@@ -662,6 +718,37 @@ void main(void)
 
                 // Update LOD and LSD information
                 LED_Update_Chip_Status();
+            }
+
+            for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
+                            LED_Write_Letter(letter_C);
+                            //LED_Write_Black_ALL();
+
+                            // Send VSYNC
+                            sendSYNC();
+
+                            // Update LOD and LSD information
+                            LED_Update_Chip_Status();
+            }
+            for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
+                                        LED_Write_Letter(letter_L);
+                                        //LED_Write_Black_ALL();
+
+                                        // Send VSYNC
+                                        sendSYNC();
+
+                                        // Update LOD and LSD information
+                                        LED_Update_Chip_Status();
+                        }
+            for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
+                            LED_Write_Letter(letter_A);
+                            //LED_Write_Black_ALL();
+
+                            // Send VSYNC
+                            sendSYNC();
+
+                            // Update LOD and LSD information
+                            LED_Update_Chip_Status();
             }
 
             for(frame2Cnt = 0; frame2Cnt<10; frame2Cnt++){

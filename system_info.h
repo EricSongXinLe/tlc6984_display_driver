@@ -30,7 +30,7 @@
     #define CASCADED_UNITS_CCSI1   1
 #else
     // The TLC698X EVM is 2-stackable mode
-    #define TOTAL_SCAN_LINES       11 //32
+    #define TOTAL_SCAN_LINES       16 //32
     #define CASCADED_UNITS_CCSI1   1 //2
 #endif
 
