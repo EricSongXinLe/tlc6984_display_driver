@@ -218,36 +218,29 @@ void LED_Write_Pos(uint16_t x, uint16_t y){
 void LED_Write_Letter(const unsigned char letter[11][11]){
     uint16_t line_idx = 0;
     uint16_t ch_idx = 0;
-    uint16_t bus_idx = 0;
-    uint16_t chip_idx = 0;
     uint16_t val = 0xFFFF;
-
-
-
     for(line_idx = 0; line_idx < TOTAL_SCAN_LINES; line_idx++){
         for(ch_idx = 0 ; ch_idx < RGB_CHANNEL_CNT ; ch_idx++){
-            for(bus_idx = 0 ; bus_idx < CCSI_BUS_NUM ; bus_idx++){
-                for(chip_idx = 0; chip_idx < CASCADED_UNITS[bus_idx]; chip_idx++){
-                    if(ch_idx < 11 && line_idx < 11){
-                        if(letter[line_idx][ch_idx] != 0){
-                            val = 0xFFFF;
-                        }
-                        else{
-                            val = 0x0;
-                        }
-                    }
-                    else{
-                        val = 0x0;
-                    }
-
-                    setData(&data[bus_idx][0],
-                            val,   // B
-                            val,   // G
-                            val,   // R
-                            (chip_idx << 1) + chip_idx);
+            if(ch_idx < 11 && line_idx < 11){
+                if(letter[line_idx][ch_idx] != 0){
+                    val = 0xFFFF;
                 }
-                CCSI_write(W_SRAM, &data[bus_idx][0], (CASCADED_UNITS[bus_idx] << 1) + CASCADED_UNITS[bus_idx], FALSE, bus_idx);
+                else{
+                    val = 0x0;
+                }
             }
+            else{
+                val = 0x0;
+            }
+
+            setData(&data[0][0],
+                    val,   // B
+                    val,   // G
+                    val,   // R
+                    0);
+
+            CCSI_write(W_SRAM, &data[0][0], 3, FALSE, 0);
+
         }
     }
 }

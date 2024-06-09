@@ -54,6 +54,7 @@
 #include <CCSI_Socket.h>
 #include "FC_settings.h"
 #include "TLC698x_LP589x_APIs.h"
+#include <stdio.h>
 
 //
 // Globals
@@ -461,6 +462,7 @@ void main(void)
     uint16_t frame2Cnt = 0;
     // Initialize device clock and peripherals
     Device_init();
+   //printf("Startup\n");
 
     // Disable pin locks and enable internal pullups.
     Device_initGPIO();
@@ -606,6 +608,19 @@ void main(void)
                                                  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                                  {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
                                              };
+    const unsigned char Test[11][11] = {
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                                                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+                                                 };
     const unsigned char letter_A[11][11] = {
                                                      {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                                                      {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0},
@@ -711,6 +726,7 @@ void main(void)
                         }
             for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
                 LED_Write_Letter(letter_U);
+                //LED_Write_Letter(Test);
                 //LED_Write_Black_ALL();
 
                 // Send VSYNC
@@ -722,6 +738,7 @@ void main(void)
 
             for(frame1Cnt = 0; frame1Cnt<25; frame1Cnt++){
                             LED_Write_Letter(letter_C);
+                            //LED_Write_Letter(Test);
                             //LED_Write_Black_ALL();
 
                             // Send VSYNC
