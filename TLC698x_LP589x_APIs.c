@@ -215,13 +215,13 @@ void LED_Write_Pos(uint16_t x, uint16_t y){
     }
 }
 
-void LED_Write_Letter(const unsigned char letter[11][11]){
+void LED_Write_Letter(const unsigned char letter[15][15]){
     uint16_t line_idx = 0;
     uint16_t ch_idx = 0;
     uint16_t val = 0xFFFF;
     for(line_idx = 0; line_idx < TOTAL_SCAN_LINES; line_idx++){
         for(ch_idx = 0 ; ch_idx < RGB_CHANNEL_CNT ; ch_idx++){
-            if(ch_idx < 11 && line_idx < 11){
+            if(ch_idx < 15 && line_idx < 15){
                 if(letter[line_idx][ch_idx] != 0){
                     val = 0xFFFF;
                 }
